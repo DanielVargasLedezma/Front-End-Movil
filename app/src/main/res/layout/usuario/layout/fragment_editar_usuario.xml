@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".ui.view.fragment.usuarios.UsuarioFragment"
+        android:background="@drawable/fondo_entidades"
+
+>
+    <ImageView
+            android:id="@+id/imagenUsuario"
+
+            android:src="@drawable/normal_user"
+
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+
+            app:layout_constraintVertical_bias="0.05"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+    />
+
+    <EditText
+            android:id="@+id/cedula_usuario"
+
+            android:background="@drawable/design"
+
+            android:inputType="textPersonName"
+
+            android:visibility="gone"
+
+            android:hint="Cédula"
+            android:textColor="@drawable/edit_text"
+            android:textColorHint="@color/grisBonito"
+            android:textAlignment="center"
+            android:textStyle="italic"
+
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:minHeight="48dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginEnd="70dp"
+            app:layout_constraintVertical_bias="0.05"
+
+            android:drawableStart="@drawable/ic_users"
+            android:paddingStart="5dp"
+            android:drawablePadding="-25dp"
+            android:drawableTint="@color/black"
+            tools:ignore="RtlSymmetry"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imagenUsuario"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+    />
+
+    <EditText
+            android:id="@+id/nombre_usuario"
+
+            android:background="@drawable/design"
+
+            android:inputType="textPersonName"
+            android:hint="Nombre Completo"
+            android:textColor="@drawable/edit_text"
+            android:textColorHint="@color/grisBonito"
+            android:textAlignment="center"
+            android:textStyle="italic"
+
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:minHeight="48dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginEnd="70dp"
+            app:layout_constraintVertical_bias="0.05"
+
+            android:drawableStart="@drawable/name"
+            android:paddingStart="5dp"
+            android:drawablePadding="-25dp"
+            android:drawableTint="@color/black"
+            tools:ignore="RtlSymmetry"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imagenUsuario"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+    />
+
+    <EditText
+            android:id="@+id/correo_usuario"
+
+            android:background="@drawable/design"
+
+            android:inputType="textEmailAddress"
+
+            android:hint="Correo Electrónico"
+            android:textColor="@drawable/edit_text"
+            android:textColorHint="@color/grisBonito"
+            android:gravity="center_horizontal|center_vertical"
+            android:textAlignment="center"
+            android:textStyle="italic"
+
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:minHeight="48dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginEnd="70dp"
+            app:layout_constraintVertical_bias="0.05"
+
+            android:drawableStart="@drawable/ic_email_svgrepo_com"
+            android:paddingStart="5dp"
+            android:drawableTint="@color/black"
+            tools:ignore="RtlSymmetry"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nombre_usuario"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+    />
+
+    <Switch
+            android:id="@+id/tipo_usuario_admin"
+
+            android:text="¿Administrador?"
+            android:textColor="@drawable/edit_text"
+            android:textStyle="bold"
+
+            app:layout_constraintVertical_bias="0.05"
+
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginEnd="80dp"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/correo_usuario"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+    />
+
+    <Switch
+            android:id="@+id/tipo_usuario_matriculador"
+
+            android:text="¿Matriculador?"
+            android:textColor="@drawable/edit_text"
+            android:textStyle="bold"
+
+            app:layout_constraintVertical_bias="0.05"
+
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginEnd="80dp"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tipo_usuario_admin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+    />
+
+    <Switch
+            android:id="@+id/estado_usuario"
+
+            android:text="¿Usuario Activo?"
+            android:textColor="@drawable/edit_text"
+            android:textStyle="bold"
+
+            app:layout_constraintVertical_bias="0.05"
+
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginEnd="80dp"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tipo_usuario_matriculador"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+    />
+
+    <ImageButton
+            android:id="@+id/descartar"
+
+            android:background="@drawable/boton_rojo"
+
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+
+            android:layout_marginStart="50dp"
+            app:layout_constraintVertical_bias="0.20"
+
+            android:src="@drawable/descartar"
+            android:tint="@color/white"
+            android:scaleType="fitCenter"
+            android:contentDescription="Descartar Cambios"
+
+            app:layout_constraintTop_toBottomOf="@+id/estado_usuario"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/insertarUsuario"
+            app:layout_constraintStart_toStartOf="parent"
+    />
+
+    <ImageButton
+            android:id="@+id/insertarUsuario"
+
+            android:background="@drawable/boton_verde"
+
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+
+            android:layout_marginEnd="50dp"
+            app:layout_constraintVertical_bias="0.20"
+
+            android:src="@drawable/save_icon"
+            android:tint="@color/white"
+            android:scaleType="fitCenter"
+            android:contentDescription="Añadir Usuario"
+
+            app:layout_constraintTop_toBottomOf="@+id/estado_usuario"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/descartar"
+            app:layout_constraintEnd_toEndOf="parent"
+    />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

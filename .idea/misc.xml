@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/add_user.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/delete_icon.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/descartar.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/edit.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/ic_email_svgrepo_com.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/ic_users.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/key_icon.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/log_out.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/log_start.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/login.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/name.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/normal_user.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/save.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/save_icon.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable/boton.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable/boton_add.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable/boton_rojo.xml" value="0.3776041666666667" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable/design.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable/edit_text.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable/fondo_entidades.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable/fondo_login.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable/ic_email_svgrepo_com.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable/ic_launcher_background.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable/ic_menu_camera.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable/ic_menu_gallery.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable/ic_users.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable/icono_perron_background.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable/nav_draw_shape.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable/save.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable/side_nav_bar.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/activity_home.xml" value="0.35260416666666666" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/activity_navdraw.xml" value="0.3625" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/app_bar_navdraw.xml" value="0.3625" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/carrera/drawable/log_out.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/carrera/layout/fragment_crear_usuario.xml" value="0.3625" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/content_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/content_navdraw.xml" value="0.3625" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/fragment_first.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/fragment_home.xml" value="0.3625" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/fragment_second.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/fragment_usuarios.xml" value="0.35733695652173914" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/nav_header_navdraw.xml" value="0.3625" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/usuario/layout/fragment_editar_usuario.xml" value="0.3625" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/usuario/layout/fragment_usuario.xml" value="0.3625" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/usuario/layout/fragment_usuarios.xml" value="0.3625" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/usuario/layout/usuario_item.xml" value="0.35989583333333336" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/usuario_item.xml" value="0.33" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/menu/activity_main_drawer.xml" value="0.3770833333333333" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/menu/menu_main.xml" value="0.20260416666666667" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/menu/navdraw.xml" value="0.3770833333333333" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/mipmap-anydpi-v26/icono_perron_round.xml" value="0.2015625" />
+      </map>
+    </option>
+  </component>
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="jbr-11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.1" />
+      </ProjectState>
+    </option>
+  </component>
+</project>
