@@ -2,9 +2,12 @@ package com.example.app_matricula_movil.ui.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.RadioGroup
+import android.widget.RadioGroup.OnCheckedChangeListener
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.example.app_matricula_movil.R
 import com.example.app_matricula_movil.databinding.ActivityMainBinding
 import com.example.app_matricula_movil.ui.viewModel.UsuarioLoggeadoViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -26,6 +29,8 @@ class MainActivity : AppCompatActivity() {
      */
     private val usuarioLoggeadoViewModel: UsuarioLoggeadoViewModel by viewModels()
 
+    private var tipoALoggear: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -35,11 +40,6 @@ class MainActivity : AppCompatActivity() {
          */
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        /*
-         * Método custom para setear el token en vacío por el funcionamiento del cliente en core.Client.
-         */
-        usuarioLoggeadoViewModel.onCreate()
 
         val intent = Intent(this@MainActivity, NavdrawActivity::class.java)
 
@@ -73,38 +73,75 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("Usuario", usuario)
         }
 
-        binding.loginButton.setOnClickListener {
-            /*
-             * La parte más compleja, lo que significa hacer la conexión con el API. Primero se setea el error de la UI a
-             * invisible para efectos de retries, porque la petición dura un ratito. Luego se empieza un Corrutina, que viene siendo
-             * un hilo alterno porque correr algo asíncrono en el hilo de la UI hace que se quede pegada y de esta manera no serviría.
-             * Esto de Corrutinas es otra dependencia que se agrega en el gradle.app. Dispatchers es un elemento de Corrutinas y no tengo
-             * mucho que decir, solo tener cuidado al exportarlo porque hay varios y tiene que ser el de Corrutinas.
-             */
-            binding.errorLogin.isVisible = false
+        binding.apply {
+            grupoRadio.setOnCheckedChangeListener { _, radioId ->
+                when (radioId) {
+                    R.id.opcion_usuario -> {
+                        tipoALoggear = 1
+                    }
+                    R.id.opcion_profesor -> {
+                        tipoALoggear = 2
+                    }
+                    R.id.opcion_alumno -> {
+                        tipoALoggear = 3
+                    }
+                }
+            }
 
-            CoroutineScope(Dispatchers.IO).launch {
-                /*
-                 * Luego se llama al método del view model para intentar hacer el login. Es una cadena de llamadas un poco XD
-                 * pero recomiendo seguir la cadena para que entienda mejor, o bueno, al menos eso es lo que intento. Se le pasan
-                 * los parámetros para realizar el intento. Dentro de este método se van a actualizar los valores del view model
-                 * dependiendo del resultado del intento, lo que va a hacer una cosa u otra. Le recomiendo ir al método (a ver t odo el viewModel)
-                 *  y luego volver a aquí para entender lo máximo.
-                 */
-                usuarioLoggeadoViewModel.login(binding.usuarioALoggear.text.toString(), binding.passALoggear.text.toString())
+            loginButton.setOnClickListener {
+                if (tipoALoggear != 0) {
+                    /*
+                     * La parte más compleja, lo que significa hacer la conexión con el API. Primero se setea el error de la UI a
+                     * invisible para efectos de retries, porque la petición dura un ratito. Luego se empieza un Corrutina, que viene siendo
+                     * un hilo alterno porque correr algo asíncrono en el hilo de la UI hace que se quede pegada y de esta manera no serviría.
+                     * Esto de Corrutinas es otra dependencia que se agrega en el gradle.app. Dispatchers es un elemento de Corrutinas y no tengo
+                     * mucho que decir, solo tener cuidado al exportarlo porque hay varios y tiene que ser el de Corrutinas.
+                     */
+                    binding.errorLogin.isVisible = false
 
-                /*
-                 * Al estar ejecutándose en un hilo aparte, las cosas relacionadas a la UI no van a servir si se ejecutan en el
-                 * hilo aparte. Por eso mismo, se usa el "runOnUiThread" para ejecutar tasks en el hilo del UI. En este caso, si el
-                 * error de la vista no está visible significa que t odo está correcto y no se puso la bandera en false, entonces no está
-                 * visible el error en la UI. Nótese que al principio del setOnClick se setea el error a invisible porque si no nunca
-                 * pasaría nada xdxdxd. Y si se da que no está visible, iniciamos la siguiente actividad que por el momento es algo X,
-                 * pero debería ser el navDraw.
-                 */
-                runOnUiThread {
-                    if(!binding.errorLogin.isVisible) {
-                        finish()
-                        startActivity(intent)
+                    CoroutineScope(Dispatchers.IO).launch {
+                        /*
+                         * Luego se llama al método del view model para intentar hacer el login. Es una cadena de llamadas un poco XD
+                         * pero recomiendo seguir la cadena para que entienda mejor, o bueno, al menos eso es lo que intento. Se le pasan
+                         * los parámetros para realizar el intento. Dentro de este método se van a actualizar los valores del view model
+                         * dependiendo del resultado del intento, lo que va a hacer una cosa u otra. Le recomiendo ir al método (a ver t odo el viewModel)
+                         *  y luego volver a aquí para entender lo máximo.
+                         */
+                        when (tipoALoggear) {
+                            1 -> {
+                                usuarioLoggeadoViewModel.login(
+                                    binding.usuarioALoggear.text.toString(),
+                                    binding.passALoggear.text.toString()
+                                )
+                            }
+                            2 -> {
+                                usuarioLoggeadoViewModel.loginProfesor(
+                                    binding.usuarioALoggear.text.toString(),
+                                    binding.passALoggear.text.toString()
+                                )
+                            }
+                            3 -> {
+                                usuarioLoggeadoViewModel.loginAlumno(
+                                    binding.usuarioALoggear.text.toString(),
+                                    binding.passALoggear.text.toString()
+                                )
+                            }
+                        }
+
+                        /*
+                         * Al estar ejecutándose en un hilo aparte, las cosas relacionadas a la UI no van a servir si se ejecutan en el
+                         * hilo aparte. Por eso mismo, se usa el "runOnUiThread" para ejecutar tasks en el hilo del UI. En este caso, si el
+                         * error de la vista no está visible significa que t odo está correcto y no se puso la bandera en false, entonces no está
+                         * visible el error en la UI. Nótese que al principio del setOnClick se setea el error a invisible porque si no nunca
+                         * pasaría nada xdxdxd. Y si se da que no está visible, iniciamos la siguiente actividad que por el momento es algo X,
+                         * pero debería ser el navDraw.
+                         */
+                        runOnUiThread {
+                            if (!binding.errorLogin.isVisible) {
+                                finish()
+                                startActivity(intent)
+                            }
+                        }
                     }
                 }
             }

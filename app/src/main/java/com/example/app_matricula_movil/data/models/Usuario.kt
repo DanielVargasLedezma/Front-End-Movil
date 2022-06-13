@@ -9,10 +9,10 @@ import com.google.gson.annotations.SerializedName
  */
 @kotlinx.serialization.Serializable
 data class Usuario(
-    @SerializedName("cedula_usuario") val cedula_usuario: String,
+    @SerializedName("cedula_usuario") var cedula_usuario: String = "",
     @SerializedName("clave") var clave: String? = "",
-    @SerializedName("tipo_usuario") val tipo_usuario: Int,
-    @SerializedName("nombre") val nombre: String,
-    @SerializedName("estado") val estado: Int,
-    @SerializedName("correoE") val correo: String
+    @SerializedName("tipo_usuario") var tipo_usuario: Int = 0,
+    @SerializedName("nombre") var nombre: String = "",
+    @SerializedName("estado") var estado: Int = 0,
+    @SerializedName("correoE") var correo: String = ""
 ) : java.io.Serializable

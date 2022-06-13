@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/fondo_entidades"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".ui.view.fragment.cursos.CursoFragment"
+>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+    >
+
+
+        <ImageView
+                android:id="@+id/imagenUsuario"
+
+                android:src="@drawable/curso_icon"
+
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+
+                app:layout_constraintVertical_bias="0.05"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+        />
+
+        <EditText
+                android:id="@+id/codigo_curso"
+
+                android:background="@drawable/design"
+
+                android:inputType="textPersonName"
+                android:hint="Código del Curso"
+                android:textColor="@drawable/edit_text"
+                android:textColorHint="@color/grisBonito"
+                android:gravity="center_vertical|center_horizontal"
+
+                android:enabled="false"
+
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:minHeight="48dp"
+                android:layout_marginStart="70dp"
+                android:layout_marginEnd="70dp"
+                app:layout_constraintVertical_bias="0.05"
+
+                android:drawableStart="@drawable/hashtag"
+                android:paddingStart="5dp"
+                android:drawablePadding="-25dp"
+                android:drawableTint="@color/black"
+                tools:ignore="RtlSymmetry"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imagenUsuario"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+        <EditText
+                android:id="@+id/nombre_curso"
+
+                android:background="@drawable/design"
+
+                android:inputType="textPersonName"
+                android:hint="Nombre del Curso"
+                android:textColor="@drawable/edit_text"
+                android:textColorHint="@color/grisBonito"
+                android:gravity="center_vertical|center_horizontal"
+
+                android:enabled="false"
+
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:minHeight="48dp"
+                android:layout_marginStart="70dp"
+                android:layout_marginEnd="70dp"
+                app:layout_constraintVertical_bias="0.05"
+
+                android:drawableStart="@drawable/name"
+                android:paddingStart="5dp"
+                android:drawablePadding="-25dp"
+                android:drawableTint="@color/black"
+                tools:ignore="RtlSymmetry"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/codigo_curso"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+        <EditText
+                android:id="@+id/horas_semanales"
+
+                android:background="@drawable/design"
+
+                android:inputType="number"
+                android:hint="Horas semanales"
+                android:textColor="@drawable/edit_text"
+                android:textColorHint="@color/grisBonito"
+                android:gravity="center_vertical|center_horizontal"
+
+                android:enabled="false"
+
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:minHeight="48dp"
+                android:layout_marginStart="70dp"
+                android:layout_marginEnd="70dp"
+                app:layout_constraintVertical_bias="0.05"
+
+                android:drawableStart="@drawable/creditos_curso"
+                android:drawablePadding="-15dp"
+                android:paddingStart="5dp"
+                android:drawableTint="@color/black"
+                tools:ignore="RtlSymmetry"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nombre_curso"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+        <EditText
+                android:id="@+id/creditos_curso"
+
+                android:background="@drawable/design"
+
+                android:inputType="number"
+                android:hint="Créditos del curso"
+                android:textColor="@drawable/edit_text"
+                android:textColorHint="@color/grisBonito"
+                android:gravity="center_vertical|center_horizontal"
+
+                android:enabled="false"
+
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:minHeight="48dp"
+                android:layout_marginStart="70dp"
+                android:layout_marginEnd="70dp"
+                app:layout_constraintVertical_bias="0.055"
+
+                android:drawableStart="@drawable/credits"
+                android:paddingStart="5dp"
+                android:drawablePadding="-15dp"
+                android:drawableTint="@color/black"
+                tools:ignore="RtlSymmetry"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/horas_semanales"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+        <EditText
+                android:id="@+id/anyo_a_cursar"
+
+                android:background="@drawable/design"
+
+                android:inputType="text"
+                android:hint="Año donde se cursa"
+                android:textColor="@drawable/edit_text"
+                android:textColorHint="@color/grisBonito"
+                android:gravity="center_vertical|center_horizontal"
+
+                android:enabled="false"
+
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:minHeight="48dp"
+                android:layout_marginStart="70dp"
+                android:layout_marginEnd="70dp"
+                app:layout_constraintVertical_bias="0.055"
+
+                android:drawableStart="@drawable/calendar"
+                android:paddingStart="5dp"
+                android:drawablePadding="-25dp"
+                android:drawableTint="@color/black"
+                tools:ignore="RtlSymmetry"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/creditos_curso"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+        <EditText
+                android:id="@+id/ciclo_a_cursar"
+
+                android:background="@drawable/design"
+
+                android:inputType="text"
+                android:hint="Ciclo del Curso"
+                android:textColor="@drawable/edit_text"
+                android:textColorHint="@color/grisBonito"
+                android:gravity="center_vertical|center_horizontal"
+
+                android:enabled="false"
+
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:minHeight="48dp"
+                android:layout_marginStart="70dp"
+                android:layout_marginEnd="70dp"
+                app:layout_constraintVertical_bias="0.055"
+
+                android:drawableStart="@drawable/cycle"
+                android:drawablePadding="-25dp"
+                android:paddingStart="5dp"
+                android:drawableTint="@color/black"
+                tools:ignore="RtlSymmetry"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/anyo_a_cursar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+        <EditText
+                android:id="@+id/carrera"
+
+                android:background="@drawable/design"
+
+                android:inputType="text"
+                android:hint="Curso Perteneciente"
+                android:textColor="@drawable/edit_text"
+                android:textColorHint="@color/grisBonito"
+                android:gravity="center_vertical|center_horizontal"
+
+                android:enabled="false"
+
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:minHeight="48dp"
+                android:layout_marginStart="70dp"
+                android:layout_marginEnd="70dp"
+                app:layout_constraintVertical_bias="0.1"
+
+                android:drawableStart="@drawable/ic_career"
+                android:paddingStart="5dp"
+                android:drawablePadding="-25dp"
+                android:drawableTint="@color/black"
+                tools:ignore="RtlSymmetry"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ciclo_a_cursar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+        <Space
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ciclo_a_cursar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.core.widget.NestedScrollView>

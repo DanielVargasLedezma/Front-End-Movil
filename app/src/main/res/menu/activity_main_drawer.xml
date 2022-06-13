@@ -9,6 +9,42 @@
                 android:icon="@drawable/ic_users"
                 android:title="@string/menu_home"/>
         <item
+                android:id="@+id/carreras"
+                android:icon="@drawable/ic_career"
+                android:title="Carreras"/>
+        <item
+                android:id="@+id/cursos"
+                android:icon="@drawable/ic_course"
+                android:title="Cursos"/>
+        <item
+                android:id="@+id/profesores"
+                android:icon="@drawable/profesor"
+                android:title="Profesores"/>
+        <item
+                android:id="@+id/alumnos"
+                android:icon="@drawable/estudiantes"
+                android:title="Alumnos"/>
+        <item
+                android:id="@+id/ciclos"
+                android:icon="@drawable/cycle"
+                android:title="Ciclos"/>
+        <item
+                android:id="@+id/oferta_academica"
+                android:icon="@drawable/oferta"
+                android:title="Oferta Académica"/>
+        <item
+                android:id="@+id/matricula"
+                android:icon="@drawable/ic_enroll"
+                android:title="Matrícula"/>
+        <item
+                android:id="@+id/grupos_asignados"
+                android:icon="@drawable/grupos_asignados"
+                android:title="Grupos Asignados"/>
+        <item
+                android:id="@+id/historial_matricula"
+                android:icon="@drawable/ic_enroll"
+                android:title="Historial Matrícula"/>
+        <item
                 android:id="@+id/logout"
                 android:icon="@drawable/log_out"
                 android:title="Cerrar Sesión"

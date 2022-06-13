@@ -25,7 +25,7 @@ class UsuarioService {
              */
             val response = RetrofitHelper.getRetrofit(token)
                 .create(UsuarioController::class.java)
-                .login(Usuario(cedula, password, 0, "", 0, ""))
+                .login(Usuario(cedula, password))
 
             /*
              * Si la respuesta es efectiva, significa que el API no tiró algún tipo de error; si esto se da, el cuerpo
@@ -40,7 +40,7 @@ class UsuarioService {
                 /*
                  * Esto equivale a retornar null, para hacer algo en el inicio de la cadena.
                  */
-                Log.v("MainActivity", "${response.errorBody()}");
+                Log.v("MainActivity", "${response.errorBody()}")
                 null
             }
         }
@@ -69,7 +69,7 @@ class UsuarioService {
             if (response.isSuccessful) {
                 true
             } else {
-                Log.v("MainActivity", "$response");
+                Log.v("MainActivity", "$response")
                 false
             }
         }
@@ -84,7 +84,7 @@ class UsuarioService {
             if (response.isSuccessful) {
                 true
             } else {
-                Log.v("MainActivity", "$response");
+                Log.v("MainActivity", "$response")
                 false
             }
         }
@@ -99,13 +99,19 @@ class UsuarioService {
             if (response.isSuccessful) {
                 true
             } else {
-                Log.v("MainActivity", "$response");
+                Log.v("MainActivity", "$response")
                 false
             }
         }
     }
 
-    suspend fun logout(token: String) {
+    suspend fun logout(token: String): Boolean {
+        return withContext(Dispatchers.IO) {
+            val response = RetrofitHelper.getRetrofit(token)
+                .create(UsuarioController::class.java)
+                .logout()
 
+            response.isSuccessful
+        }
     }
 }

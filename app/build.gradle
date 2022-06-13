@@ -22,8 +22,8 @@ android {
             [
                     'src/main/res/layout/carrera',
                     'src/main/res/layout/usuario',
+                    'src/main/res/layout/curso',
                     'src/main/res',
-
             ]
         }
     }

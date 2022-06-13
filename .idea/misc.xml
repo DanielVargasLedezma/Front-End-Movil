@@ -3,11 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/add_sign.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/add_user.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/calendar.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/creditos_curso.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/credits.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/curso_icon.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/cycle.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/delete_icon.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/descartar.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/edit.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/estudiantes.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/grupos_asignados.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/hashtag.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/ic_career.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/ic_course.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/ic_email_svgrepo_com.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/ic_enroll.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/ic_users.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/key_icon.xml" value="0.37864583333333335" />
@@ -16,6 +28,8 @@
         <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/login.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/name.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/normal_user.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/oferta.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/profesor.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/save.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable-v24/save_icon.xml" value="0.37864583333333335" />
         <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/drawable/boton.xml" value="0.37864583333333335" />
@@ -40,14 +54,29 @@
         <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/activity_navdraw.xml" value="0.3625" />
         <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/app_bar_navdraw.xml" value="0.3625" />
         <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/carrera/drawable/log_out.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/carrera/layout/carrera_item.xml" value="0.3614583333333333" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/carrera/layout/fragment_crear_curso.xml" value="0.3625" />
         <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/carrera/layout/fragment_crear_usuario.xml" value="0.3625" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/carrera/layout/fragment_cursos.xml" value="0.3484375" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/carrera/layout/fragment_editar_curso.xml" value="0.3625" />
         <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/content_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/content_navdraw.xml" value="0.3625" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/curso/drawable/credits.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/curso/layout/curso_item.xml" value="0.3134057971014493" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/curso/layout/fragment_crear_curso.xml" value="0.3625" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/curso/layout/fragment_curso.xml" value="0.1" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/curso/layout/fragment_editar_curso.xml" value="0.35989583333333336" />
         <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/fragment_first.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/fragment_home.xml" value="0.3625" />
         <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/fragment_second.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/fragment_usuarios.xml" value="0.35733695652173914" />
         <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/nav_header_navdraw.xml" value="0.3625" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/spinner_list.xml" value="0.3625" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/spinner_list_cycle.xml" value="0.3614583333333333" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/spinner_list_cycle_first.xml" value="0.3614583333333333" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/spinner_list_first.xml" value="0.3625" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/spinner_list_year_first.xml" value="0.3614583333333333" />
+        <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/usuario/layout/fragment_crear_usuario.xml" value="0.3625" />
         <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/usuario/layout/fragment_editar_usuario.xml" value="0.3625" />
         <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/usuario/layout/fragment_usuario.xml" value="0.3625" />
         <entry key="..\:/Users/danil/ProyectosKottlin/frontend-movil/app/src/main/res/layout/usuario/layout/fragment_usuarios.xml" value="0.3625" />

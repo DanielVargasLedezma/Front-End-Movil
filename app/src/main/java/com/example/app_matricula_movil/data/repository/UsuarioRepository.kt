@@ -29,4 +29,6 @@ class UsuarioRepository {
         usuarioService.insertarUsuario(usuario, token)
 
     suspend fun editarUsuario(usuario: Usuario, token: String): Boolean = usuarioService.editarUsuario(usuario, token)
+
+    suspend fun logout(token: String) : Boolean = usuarioService.logout(token)
 }

@@ -3,6 +3,8 @@ package com.example.app_matricula_movil.ui.viewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.app_matricula_movil.data.models.Usuario
+import com.example.app_matricula_movil.data.repository.AlumnoRepository
+import com.example.app_matricula_movil.data.repository.ProfesorRepository
 import com.example.app_matricula_movil.domain.useCase.DoLogin
 
 /*
@@ -31,6 +33,9 @@ class UsuarioLoggeadoViewModel : ViewModel() {
      */
     private val doLogin = DoLogin()
 
+    private val profesorRepository = ProfesorRepository()
+    private val alumnoRepository = AlumnoRepository()
+
     /*
      * Esto es el núcleo del View Model, Datos vivos mutables. Estos son del tipo que se le especifica dentro de los <>,
      * estos datos son observables y mutables, cuando se cambian se notifica o ejecuta el código dentro de los observadores
@@ -43,7 +48,7 @@ class UsuarioLoggeadoViewModel : ViewModel() {
     /*
      * Método xd para setear el token a un valor vacío no nulo para la petición del login que no usa token.
      */
-    fun onCreate() {
+    init {
         token.postValue("")
     }
 
@@ -77,6 +82,50 @@ class UsuarioLoggeadoViewModel : ViewModel() {
 
             loggedState.postValue(true)
         } else {
+            loggedState.postValue(false)
+        }
+    }
+
+    suspend fun loginProfesor(cedula: String, password: String) {
+        val response = profesorRepository.login(cedula, password, "")
+
+        if (response != null) {
+            this.token.postValue(response.token)
+            this.usuario.postValue(
+                Usuario(
+                    response.profesor.cedula_profesor,
+                    "",
+                    3,
+                    response.profesor.nombre,
+                    1,
+                    response.profesor.correo
+                )
+            )
+
+            loggedState.postValue(true)
+        } else {
+            loggedState.postValue(false)
+        }
+    }
+
+    suspend fun loginAlumno(cedula: String, password: String) {
+        val response = alumnoRepository.login(cedula, password, "")
+
+        if (response != null) {
+            this.token.postValue(response.token)
+            this.usuario.postValue(
+                Usuario(
+                    response.alumno.cedula_alumno,
+                    "",
+                    4,
+                    response.alumno.nombre,
+                    1,
+                    response.alumno.correo
+                )
+            )
+
+            loggedState.postValue(true)
+        }  else {
             loggedState.postValue(false)
         }
     }

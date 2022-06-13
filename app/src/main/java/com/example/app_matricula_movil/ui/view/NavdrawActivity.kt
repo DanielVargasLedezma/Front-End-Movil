@@ -11,8 +11,13 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.example.app_matricula_movil.R
 import com.example.app_matricula_movil.data.models.Usuario
+import com.example.app_matricula_movil.data.repository.UsuarioRepository
 import com.example.app_matricula_movil.databinding.ActivityNavdrawBinding
+import com.example.app_matricula_movil.ui.view.fragment.cursos.CursosFragment
 import com.example.app_matricula_movil.ui.view.fragment.usuarios.UsuariosFragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class NavdrawActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -29,6 +34,8 @@ class NavdrawActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
      * para la hora de crear aplicaciones del job para linkearlo a dicho usuario.
      */
     private var userLogged: Usuario? = null
+
+    private val usuarioRepository = UsuarioRepository()
 
     private var token: String? = ""
 
@@ -67,6 +74,41 @@ class NavdrawActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
              * Le añade el listener a la navdraw para que haga una cosa u otra cuando se seleccione cada item de la nav.
              */
             navView.setNavigationItemSelectedListener(this@NavdrawActivity)
+
+            when (userLogged!!.tipo_usuario) {
+                1 -> {
+                    navView.menu.getItem(7).isVisible = false
+                    navView.menu.getItem(8).isVisible = false
+                    navView.menu.getItem(9).isVisible = false
+                }
+                2 -> {
+                    hideZeroToSix()
+                    navView.menu.getItem(8).isVisible = false
+                    navView.menu.getItem(9).isVisible = false
+                }
+                3 -> {
+                    hideZeroToSix()
+                    navView.menu.getItem(7).isVisible = false
+                    navView.menu.getItem(9).isVisible = false
+                }
+                4 -> {
+                    hideZeroToSix()
+                    navView.menu.getItem(7).isVisible = false
+                    navView.menu.getItem(8).isVisible = false
+                }
+            }
+        }
+    }
+
+    private fun hideZeroToSix() {
+        binding.apply {
+            navView.menu.getItem(0).isVisible = false
+            navView.menu.getItem(1).isVisible = false
+            navView.menu.getItem(2).isVisible = false
+            navView.menu.getItem(3).isVisible = false
+            navView.menu.getItem(4).isVisible = false
+            navView.menu.getItem(5).isVisible = false
+            navView.menu.getItem(6).isVisible = false
         }
     }
 
@@ -129,10 +171,35 @@ class NavdrawActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
                     )
                 )
             }
+            R.id.cursos -> {
+                supportActionBar?.title = "Cursos Registrados"
+                replaceFragments(
+                    CursosFragment.newInstance(
+                        token!!,
+                        userLogged!!
+                    )
+                )
+            }
             R.id.logout -> {
-                userLogged = null
-                finish()
-                startActivity(Intent(this@NavdrawActivity, MainActivity::class.java))
+                CoroutineScope(Dispatchers.IO).launch {
+                    val response = usuarioRepository.logout(token!!)
+
+                    if (response) {
+                        runOnUiThread {
+                            userLogged = null
+
+                            finish()
+                            startActivity(Intent(this@NavdrawActivity, MainActivity::class.java))
+                        }
+                    } else {
+                        runOnUiThread {
+                            userLogged = null
+
+                            finish()
+                            startActivity(Intent(this@NavdrawActivity, MainActivity::class.java))
+                        }
+                    }
+                }
             }
         }
 

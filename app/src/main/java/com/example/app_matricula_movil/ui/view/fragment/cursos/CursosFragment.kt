@@ -1,4 +1,4 @@
-package com.example.app_matricula_movil.ui.view.fragment.usuarios
+package com.example.app_matricula_movil.ui.view.fragment.cursos
 
 import android.content.DialogInterface
 import android.graphics.Canvas
@@ -16,10 +16,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app_matricula_movil.R
 import com.example.app_matricula_movil.data.models.Usuario
-import com.example.app_matricula_movil.data.repository.UsuarioRepository
-import com.example.app_matricula_movil.databinding.FragmentUsuariosBinding
-import com.example.app_matricula_movil.domain.useCase.GetUsuarios
+import com.example.app_matricula_movil.data.models.carrera.CarreraCompleja
+import com.example.app_matricula_movil.data.models.curso.CursoComplejo
+import com.example.app_matricula_movil.data.repository.CursoRepository
+import com.example.app_matricula_movil.databinding.FragmentCursosBinding
 import com.example.app_matricula_movil.ui.view.NavdrawActivity
+import com.example.app_matricula_movil.ui.view.fragment.usuarios.EditarUsuarioFragment
+import com.example.app_matricula_movil.ui.view.recyclerView.cursosRecyclerView.CursoAdapter
 import com.example.app_matricula_movil.ui.view.recyclerView.usuariosRecyclerView.UsuarioAdapter
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import kotlinx.coroutines.CoroutineScope
@@ -30,33 +33,33 @@ import kotlin.collections.ArrayList
 
 /**
  * A simple [Fragment] subclass.
- * Use the [UsuariosFragment.newInstance] factory method to
+ * Use the [CursosFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class UsuariosFragment : Fragment() {
-
+class CursosFragment : Fragment() {
     private val ARG_PARAM1 = "param1"
     private val ARG_PARAM2 = "param2"
+    private val ARG_PARAM3 = "param3"
 
     private var token: String? = null
     private var usuarioLoggeado: Usuario? = null
+    private var carreraCompleja: CarreraCompleja? = null
 
-    private var _binding: FragmentUsuariosBinding? = null
+    private var _binding: FragmentCursosBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var adapter: UsuarioAdapter
+    private lateinit var adapter: CursoAdapter
 
-    private var usuarios: ArrayList<Usuario> = arrayListOf()
+    private var cursos: ArrayList<CursoComplejo> = arrayListOf()
 
-    private val usuarioRepository = UsuarioRepository()
-
-    private val getUsuarios = GetUsuarios()
+    private val cursoRepository = CursoRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             token = it.getString(ARG_PARAM1)
             usuarioLoggeado = it.getSerializable(ARG_PARAM2) as Usuario?
+            carreraCompleja = it.getSerializable(ARG_PARAM3) as CarreraCompleja?
         }
     }
 
@@ -64,51 +67,72 @@ class UsuariosFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentUsuariosBinding.inflate(inflater, container, false)
+        _binding = FragmentCursosBinding.inflate(inflater, container, false)
 
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = getUsuarios(token!!)
+        if (carreraCompleja == null) {
+            CoroutineScope(Dispatchers.IO).launch {
+                val response = cursoRepository.getCursos(token!!)
 
-            if (response != null) {
+                if (response != null) {
+                    activity!!.runOnUiThread {
+                        cursos.addAll(response.cursos)
+                    }
+                }
+
                 activity!!.runOnUiThread {
-                    usuarios.addAll(response.usuarios)
+                    initRecyclerView()
+                    setSearchBar()
+                    setRecyclerViewsItemsTouchHelper()
                 }
             }
+        } else {
+            (activity as NavdrawActivity).supportActionBar?.title = "Cursos de ${carreraCompleja!!.codigo_carrera}"
+            cursos.addAll(carreraCompleja!!.cursos)
 
-            activity!!.runOnUiThread {
-                initRecyclerView()
-                setSearchBar()
-                setRecyclerViewsItemsTouchHelper()
-            }
+            initRecyclerView()
+            setSearchBar()
+            setRecyclerViewsItemsTouchHelper()
         }
 
         binding.apply {
             fab.setOnClickListener {
-                (activity as NavdrawActivity).supportActionBar?.title = "Registrar Usuario"
+                (activity as NavdrawActivity).supportActionBar?.title = "Registrar Curso"
 
-                swapFragments(
-                    CrearUsuarioFragment.newInstance(
-                        usuarioLoggeado!!, token!!
+                if (carreraCompleja == null) {
+                    swapFragments(
+                        CrearCursoFragment.newInstance(
+                            token!!, usuarioLoggeado!!
+                        )
                     )
-                )
+                } else {
+                    swapFragments(
+                        CrearCursoFragment.newInstance(
+                            token!!, usuarioLoggeado!!, carreraCompleja
+                        )
+                    )
+                }
             }
         }
 
         return binding.root
     }
 
-    private fun getUsuarios() {
+    private fun getCursos() {
         CoroutineScope(Dispatchers.IO).launch {
-            val response = getUsuarios(token!!)
+            val response = cursoRepository.getCursos(token!!)
 
             if (response != null) {
                 activity!!.runOnUiThread {
-                    usuarios.clear()
-                    usuarios.addAll(response.usuarios)
+                    cursos.clear()
+                    cursos.addAll(response.cursos)
+
+                    actualizarRecyclerView()
                 }
             } else {
                 activity!!.runOnUiThread {
-                    usuarios = arrayListOf()
+                    cursos = arrayListOf()
+
+                    actualizarRecyclerView()
                 }
             }
         }
@@ -116,8 +140,8 @@ class UsuariosFragment : Fragment() {
 
     private fun initRecyclerView() {
         binding.apply {
-            recyclerView.layoutManager = LinearLayoutManager(this@UsuariosFragment.context)
-            adapter = UsuarioAdapter(usuarios) { onItemSelected(it) }
+            recyclerView.layoutManager = LinearLayoutManager(this@CursosFragment.context)
+            adapter = CursoAdapter(cursos) { onItemSelected(it) }
             recyclerView.adapter = adapter
             recyclerView.setHasFixedSize(true)
         }
@@ -140,7 +164,7 @@ class UsuariosFragment : Fragment() {
 
     private fun actualizarRecyclerView() {
         binding.apply {
-            adapter = UsuarioAdapter(usuarios) { onItemSelected(it) }
+            adapter = CursoAdapter(cursos) { onItemSelected(it) }
 
             recyclerView.adapter = adapter
         }
@@ -159,7 +183,7 @@ class UsuariosFragment : Fragment() {
                 val fromPosition: Int = viewHolder.adapterPosition
                 val toPosition: Int = target.adapterPosition
 
-                Collections.swap(usuarios, fromPosition, toPosition)
+                Collections.swap(cursos, fromPosition, toPosition)
 
                 binding.apply {
                     recyclerView.adapter?.notifyItemMoved(fromPosition, toPosition)
@@ -173,30 +197,30 @@ class UsuariosFragment : Fragment() {
 
                 if (direction == ItemTouchHelper.RIGHT) {
                     binding.apply {
-                        (activity as NavdrawActivity).supportActionBar?.title = "Editar Usuario"
+                        (activity as NavdrawActivity).supportActionBar?.title = "Editar Curso"
 
                         swapFragments(
-                            EditarUsuarioFragment.newInstance(
-                                usuarios[position], token!!, usuarioLoggeado!!
+                            EditarCursoFragment.newInstance(
+                                cursos[position], token!!, usuarioLoggeado!!
                             )
                         )
                     }
                 } else {
                     binding.apply {
-                        AlertDialog.Builder(this@UsuariosFragment.context!!).apply {
+                        AlertDialog.Builder(this@CursosFragment.context!!).apply {
                             setTitle("¿Está seguro de eliminar este usuario?")
                             setMessage("Esta acción removerá al usuario del sistema y es irreversible.")
 
                             setPositiveButton("Aceptar") { _: DialogInterface, _: Int ->
                                 CoroutineScope(Dispatchers.IO).launch {
                                     val response =
-                                        usuarioRepository.eliminarUsuario(usuarios[position].cedula_usuario, token!!)
+                                        cursoRepository.eliminarCurso(cursos[position].codigo_curso, token!!)
 
                                     if (response) {
                                         activity!!.runOnUiThread {
-                                            getUsuarios()
+                                            getCursos()
 
-                                            usuarios.removeAt(position)
+                                            cursos.removeAt(position)
                                             recyclerView.adapter?.notifyItemRemoved(position)
 
                                             actualizarRecyclerView()
@@ -206,7 +230,7 @@ class UsuariosFragment : Fragment() {
                                             actualizarRecyclerView()
 
                                             Toast.makeText(
-                                                this@UsuariosFragment.context,
+                                                this@CursosFragment.context,
                                                 "Error al eliminar",
                                                 Toast.LENGTH_SHORT
                                             )
@@ -220,7 +244,7 @@ class UsuariosFragment : Fragment() {
                                 actualizarRecyclerView()
 
                                 Toast.makeText(
-                                    this@UsuariosFragment.context,
+                                    this@CursosFragment.context,
                                     "Acción cancelada",
                                     Toast.LENGTH_SHORT
                                 )
@@ -242,7 +266,7 @@ class UsuariosFragment : Fragment() {
             ) {
 
                 RecyclerViewSwipeDecorator.Builder(
-                    this@UsuariosFragment.context,
+                    this@CursosFragment.context,
                     c,
                     recyclerView,
                     viewHolder,
@@ -253,14 +277,14 @@ class UsuariosFragment : Fragment() {
                 )
                     .addSwipeLeftBackgroundColor(
                         ContextCompat.getColor(
-                            this@UsuariosFragment.context!!,
+                            this@CursosFragment.context!!,
                             R.color.red
                         )
                     )
                     .addSwipeLeftActionIcon(R.drawable.delete_icon)
                     .addSwipeRightBackgroundColor(
                         ContextCompat.getColor(
-                            this@UsuariosFragment.context!!,
+                            this@CursosFragment.context!!,
                             R.color.green
                         )
                     )
@@ -279,12 +303,12 @@ class UsuariosFragment : Fragment() {
         }
     }
 
-    private fun onItemSelected(usuario: Usuario) {
-        (activity as NavdrawActivity).supportActionBar?.title = "Visualizar Usuario"
+    private fun onItemSelected(curso: CursoComplejo) {
+        (activity as NavdrawActivity).supportActionBar?.title = "Visualizar Curso"
 
         swapFragments(
-            UsuarioFragment.newInstance(
-                usuario
+            CursoFragment.newInstance(
+                curso
             )
         )
     }
@@ -311,15 +335,18 @@ class UsuariosFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment UsuariosFragment.
+         * @return A new instance of fragment CursosFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: Usuario) =
-            UsuariosFragment().apply {
+        fun newInstance(param1: String, param2: Usuario, param3: CarreraCompleja? = null) =
+            CursosFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putSerializable(ARG_PARAM2, param2)
+                    if (param3 != null) {
+                        putSerializable(ARG_PARAM3, param3)
+                    }
                 }
             }
     }
