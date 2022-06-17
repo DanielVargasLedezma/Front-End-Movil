@@ -174,7 +174,6 @@ class EditarUsuarioFragment : Fragment() {
          * @param param3 Parameter 3.
          * @return A new instance of fragment EditarUsuarioFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: Usuario, param2: String, param3: Usuario) =
             EditarUsuarioFragment().apply {

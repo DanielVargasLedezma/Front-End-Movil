@@ -60,7 +60,6 @@ class UsuarioFragment : Fragment() {
          * @param param1 Parameter 1.
          * @return A new instance of fragment UsuarioFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: Usuario) =
             UsuarioFragment().apply {

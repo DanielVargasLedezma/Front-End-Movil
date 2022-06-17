@@ -2,7 +2,7 @@ package com.example.app_matricula_movil.data.repository
 
 import com.example.app_matricula_movil.data.models.curso.Curso
 import com.example.app_matricula_movil.data.network.service.CursoService
-import com.example.app_matricula_movil.data.responses.GetCursosResponse
+import com.example.app_matricula_movil.data.responses.curso.GetCursosResponse
 
 class CursoRepository {
     private val cursoService = CursoService()

@@ -85,15 +85,17 @@ class CrearCursoFragment : Fragment() {
             activity!!.runOnUiThread {
                 setAdapterCarrera()
 
-                binding.apply {
-                    var i = 1
-                    for (carrera in carreras) {
-                        if (carrera.codigo_carrera == carreraCompleja!!.codigo_carrera) {
-                            carreraSpinner.setSelection(i)
-                            carreraSpinner.isEnabled = false
-                            break
+                if (carreraCompleja != null) {
+                    binding.apply {
+                        var i = 1
+                        for (carrera in carreras) {
+                            if (carrera.codigo_carrera == carreraCompleja!!.codigo_carrera) {
+                                carreraSpinner.setSelection(i)
+                                carreraSpinner.isEnabled = false
+                                break
+                            }
+                            i++
                         }
-                        i++
                     }
                 }
             }

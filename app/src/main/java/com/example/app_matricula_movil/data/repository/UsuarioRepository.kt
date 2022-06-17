@@ -2,7 +2,7 @@ package com.example.app_matricula_movil.data.repository
 
 import com.example.app_matricula_movil.data.models.Usuario
 import com.example.app_matricula_movil.data.network.service.UsuarioService
-import com.example.app_matricula_movil.data.responses.GetUsuariosResponse
+import com.example.app_matricula_movil.data.responses.usuario.GetUsuariosResponse
 import com.example.app_matricula_movil.data.responses.UsuarioResponseLogin
 
 class UsuarioRepository {

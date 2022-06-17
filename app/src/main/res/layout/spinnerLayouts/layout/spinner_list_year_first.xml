@@ -9,6 +9,8 @@
         android:textSize="16sp"
 
         android:drawableStart="@drawable/calendar"
+        android:drawableEnd="@drawable/down_arrow"
+
         android:paddingStart="5dp"
         android:drawableTint="@color/black"
 />

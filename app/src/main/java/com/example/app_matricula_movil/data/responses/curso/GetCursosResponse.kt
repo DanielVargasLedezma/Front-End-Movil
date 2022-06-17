@@ -1,4 +1,4 @@
-package com.example.app_matricula_movil.data.responses
+package com.example.app_matricula_movil.data.responses.curso
 
 import com.example.app_matricula_movil.data.models.curso.CursoComplejo
 import com.google.gson.annotations.SerializedName

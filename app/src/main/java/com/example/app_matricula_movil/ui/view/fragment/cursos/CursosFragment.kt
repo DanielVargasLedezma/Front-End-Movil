@@ -40,10 +40,12 @@ class CursosFragment : Fragment() {
     private val ARG_PARAM1 = "param1"
     private val ARG_PARAM2 = "param2"
     private val ARG_PARAM3 = "param3"
+    private val ARG_PARAM4 = "param4"
 
     private var token: String? = null
     private var usuarioLoggeado: Usuario? = null
     private var carreraCompleja: CarreraCompleja? = null
+    private var viendoVista: String? = null
 
     private var _binding: FragmentCursosBinding? = null
     private val binding get() = _binding!!
@@ -60,6 +62,7 @@ class CursosFragment : Fragment() {
             token = it.getString(ARG_PARAM1)
             usuarioLoggeado = it.getSerializable(ARG_PARAM2) as Usuario?
             carreraCompleja = it.getSerializable(ARG_PARAM3) as CarreraCompleja?
+            viendoVista = it.getString(ARG_PARAM4)
         }
     }
 
@@ -91,7 +94,9 @@ class CursosFragment : Fragment() {
 
             initRecyclerView()
             setSearchBar()
-            setRecyclerViewsItemsTouchHelper()
+
+            if (viendoVista == null) setRecyclerViewsItemsTouchHelper()
+            else binding.fab.visibility = View.GONE
         }
 
         binding.apply {
@@ -308,7 +313,7 @@ class CursosFragment : Fragment() {
 
         swapFragments(
             CursoFragment.newInstance(
-                curso
+                curso, token, usuarioLoggeado, viendoVista
             )
         )
     }
@@ -337,16 +342,14 @@ class CursosFragment : Fragment() {
          * @param param2 Parameter 2.
          * @return A new instance of fragment CursosFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: Usuario, param3: CarreraCompleja? = null) =
+        fun newInstance(param1: String, param2: Usuario, param3: CarreraCompleja? = null, param4: String? = null) =
             CursosFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putSerializable(ARG_PARAM2, param2)
-                    if (param3 != null) {
-                        putSerializable(ARG_PARAM3, param3)
-                    }
+                    if (param3 != null) putSerializable(ARG_PARAM3, param3)
+                    if (param4 != null) putString(ARG_PARAM4, param4)
                 }
             }
     }

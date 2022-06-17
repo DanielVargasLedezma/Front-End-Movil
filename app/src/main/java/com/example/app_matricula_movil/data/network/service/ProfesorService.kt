@@ -2,12 +2,10 @@ package com.example.app_matricula_movil.data.network.service
 
 import android.util.Log
 import com.example.app_matricula_movil.core.RetrofitHelper
-import com.example.app_matricula_movil.data.models.Usuario
 import com.example.app_matricula_movil.data.models.profesor.Profesor
 import com.example.app_matricula_movil.data.network.controller.ProfesorController
-import com.example.app_matricula_movil.data.network.controller.UsuarioController
 import com.example.app_matricula_movil.data.responses.ProfesorResponseLogin
-import com.example.app_matricula_movil.data.responses.UsuarioResponseLogin
+import com.example.app_matricula_movil.data.responses.profesor.GetProfesoresResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -45,6 +43,17 @@ class ProfesorService {
                 Log.v("MainActivity", "$response")
                 null
             }
+        }
+    }
+
+    suspend fun getProfesores(token: String): GetProfesoresResponse? {
+        return withContext(Dispatchers.IO) {
+            val response = RetrofitHelper.getRetrofit(token)
+                .create(ProfesorController::class.java)
+                .getProfesores()
+
+            if (response.isSuccessful) response.body()
+            else null
         }
     }
 }

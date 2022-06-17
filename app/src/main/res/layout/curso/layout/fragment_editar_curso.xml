@@ -34,6 +34,8 @@
 
                 android:background="@drawable/design"
 
+                android:visibility="gone"
+
                 android:inputType="text"
                 android:hint="Código del Curso"
                 android:textColor="@drawable/edit_text"
@@ -82,7 +84,7 @@
                 tools:ignore="RtlSymmetry"
 
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/codigo_curso"
+                app:layout_constraintTop_toBottomOf="@+id/imagenUsuario"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
         />
