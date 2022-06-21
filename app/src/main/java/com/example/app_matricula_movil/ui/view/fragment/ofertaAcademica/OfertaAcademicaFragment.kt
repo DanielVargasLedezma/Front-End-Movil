@@ -93,10 +93,10 @@ class OfertaAcademicaFragment : Fragment() {
 
                     swapFragments(
                         CursosFragment.newInstance(
-                            token!!, usuarioLoggeado!!, CarreraCompleja(
+                            CarreraCompleja(
                                 carreraComplejaSeleccionada!!.codigo_carrera,
                                 carreraComplejaSeleccionada!!.nombre,
-                                carreraComplejaSeleccionada!!.creditos,
+                                carreraComplejaSeleccionada!!.titulo,
                                 ArrayList<CursoComplejo>(cursosFiltrados),
                             ), "OfertaAcademica"
                         )

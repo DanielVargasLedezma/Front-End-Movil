@@ -19,6 +19,7 @@ import com.example.app_matricula_movil.data.repository.CarreraRepository
 import com.example.app_matricula_movil.data.repository.CursoRepository
 import com.example.app_matricula_movil.databinding.FragmentEditarCursoBinding
 import com.example.app_matricula_movil.ui.view.NavdrawActivity
+import com.example.app_matricula_movil.ui.view.fragment.carreras.CarrerasFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,12 +32,8 @@ import kotlinx.coroutines.launch
 class EditarCursoFragment : Fragment() {
     private val ARG_PARAM1 = "param1"
     private val ARG_PARAM2 = "param2"
-    private val ARG_PARAM3 = "param3"
-    private val ARG_PARAM4 = "param4"
 
     private var cursoAEditar: CursoComplejo? = null
-    private var token: String? = null
-    private var usuarioLoggeado: Usuario? = null
     private var carreraCompleja: CarreraCompleja? = null
 
     private var _binding: FragmentEditarCursoBinding? = null
@@ -63,9 +60,7 @@ class EditarCursoFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             cursoAEditar = it.getSerializable(ARG_PARAM1) as CursoComplejo?
-            token = it.getString(ARG_PARAM2)
-            usuarioLoggeado = it.getSerializable(ARG_PARAM3) as Usuario?
-            carreraCompleja = it.getSerializable(ARG_PARAM4) as CarreraCompleja?
+            carreraCompleja = it.getSerializable(ARG_PARAM2) as CarreraCompleja?
         }
     }
 
@@ -78,7 +73,7 @@ class EditarCursoFragment : Fragment() {
         setAdapterCiclo()
 
         CoroutineScope(Dispatchers.IO).launch {
-            val response = carreraRepository.getCarreras(token!!)
+            val response = carreraRepository.getCarreras((activity as NavdrawActivity).token!!)
 
             if (response != null) {
                 activity!!.runOnUiThread {
@@ -113,11 +108,19 @@ class EditarCursoFragment : Fragment() {
                             cursoAEnviar.creditos = creditosCurso.text.toString().toInt()
 
                             CoroutineScope(Dispatchers.IO).launch {
-                                val response = cursoRepository.editarCurso(cursoAEnviar, token!!)
+                                val response =
+                                    cursoRepository.editarCurso(cursoAEnviar, (activity as NavdrawActivity).token!!)
 
                                 if (response) {
                                     activity!!.runOnUiThread {
-                                        iniciarCursos()
+                                        if (carreraCompleja != null) {
+                                            (activity as NavdrawActivity).supportActionBar?.title =
+                                                "Carreras Registradas"
+
+                                            swapFragments(
+                                                CarrerasFragment.newInstance()
+                                            )
+                                        } else iniciarCursos()
                                     }
                                 } else {
                                     activity!!.runOnUiThread {
@@ -142,6 +145,10 @@ class EditarCursoFragment : Fragment() {
                     )
                         .show()
                 }
+            }
+
+            goBack.setOnClickListener {
+                iniciarCursos()
             }
         }
 
@@ -257,18 +264,21 @@ class EditarCursoFragment : Fragment() {
     }
 
     private fun iniciarCursos() {
+        if (carreraCompleja == null) (activity as NavdrawActivity).supportActionBar?.title = "Cursos Registrados"
+        else (activity as NavdrawActivity).supportActionBar?.title = "Cursos de ${carreraCompleja!!.codigo_carrera}"
+
+        swapFragments(
+            CursosFragment.newInstance(
+                carreraCompleja
+            )
+        )
+    }
+
+    private fun swapFragments(fragment: Fragment) {
         val fragmentTransaction = parentFragmentManager.beginTransaction()
 
-        if (carreraCompleja == null) {
-            (activity as NavdrawActivity).supportActionBar?.title = "Cursos Registrados"
-        } else {
-            (activity as NavdrawActivity).supportActionBar?.title = "Cursos de ${carreraCompleja!!.codigo_carrera}"
-        }
-
         fragmentTransaction.replace(
-            R.id.contentMain, CursosFragment.newInstance(
-                token!!, usuarioLoggeado!!, carreraCompleja
-            )
+            R.id.contentMain, fragment
         )
 
         fragmentTransaction.commit()
@@ -322,22 +332,16 @@ class EditarCursoFragment : Fragment() {
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
+         * @param cursoAEditar Curso a editar.
+         * @param carreraElegida Carrera de las cuales se están visualizando los cursos.
          * @return A new instance of fragment EditarCursoFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: CursoComplejo, param2: String, param3: Usuario, param4: CarreraCompleja? = null) =
+        fun newInstance(cursoAEditar: CursoComplejo, carreraElegida: CarreraCompleja? = null) =
             EditarCursoFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                    putSerializable(ARG_PARAM3, param3)
-
-                    if (param4 != null) {
-                        putSerializable(ARG_PARAM3, param3)
-                    }
+                    putSerializable(ARG_PARAM1, cursoAEditar)
+                    if (carreraElegida != null) putSerializable(ARG_PARAM2, carreraElegida)
                 }
             }
     }

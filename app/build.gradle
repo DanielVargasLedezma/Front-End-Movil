@@ -27,6 +27,7 @@ android {
                     'src\\main\\res\\layout\\ofertaAcademica',
                     'src\\main\\res\\layout\\grupo',
                     'src\\main\\res\\layout\\spinnerLayouts',
+                    'src\\main\\res\\layout\\matricula',
             ]
         }
     }

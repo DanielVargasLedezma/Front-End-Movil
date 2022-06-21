@@ -3,6 +3,7 @@ package com.example.app_matricula_movil.ui.view.fragment.grupos
 import android.content.DialogInterface
 import android.graphics.Canvas
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -76,7 +77,9 @@ class GruposFragment : Fragment() {
                     if (response != null) {
                         activity!!.runOnUiThread {
                             grupos.clear()
-                            grupos.addAll(response.grupos)
+                            grupos.addAll(response.grupos.filter {
+                                it.ciclo.ciclo_activo == 1
+                            })
                         }
                     }
 
@@ -98,7 +101,9 @@ class GruposFragment : Fragment() {
                     if (response != null) {
                         activity!!.runOnUiThread {
                             grupos.clear()
-                            grupos.addAll(response.grupos)
+                            grupos.addAll(response.grupos.filter{
+                                it.ciclo.ciclo_activo == 1
+                            })
                         }
                     }
 

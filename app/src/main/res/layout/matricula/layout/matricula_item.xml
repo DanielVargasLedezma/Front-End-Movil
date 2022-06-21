@@ -2,8 +2,9 @@
 <androidx.cardview.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" xmlns:tools="http://schemas.android.com/tools"
+        android:layout_height="wrap_content"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
 >
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -19,7 +20,7 @@
 
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:src="@drawable/ic_career"
+                android:src="@drawable/grupo_matricula"
         />
 
         <androidx.constraintlayout.widget.Guideline
@@ -31,7 +32,7 @@
         />
 
         <TextView
-                android:id="@+id/codigo_carrera"
+                android:id="@+id/codigo_grupo"
 
                 android:drawableStart="@drawable/hashtag"
                 android:drawablePadding="5dp"
@@ -53,13 +54,34 @@
                 app:layout_constraintBottom_toBottomOf="parent"
         />
         <TextView
-                android:id="@+id/nombre_carrera"
+                android:id="@+id/nombre_curso"
 
-                android:drawableStart="@drawable/name"
+                android:drawableStart="@drawable/curso_icon"
                 android:drawablePadding="5dp"
                 android:paddingStart="5dp"
 
                 tools:text="Applicant profession"
+
+                android:gravity="center_vertical"
+
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                app:layout_constraintHorizontal_bias="0.1"
+                android:layout_marginTop="5dp"
+
+                app:layout_constraintStart_toEndOf="@+id/guidelineStart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/codigo_grupo"
+        />
+
+        <TextView
+                android:id="@+id/nota"
+
+                android:drawableStart="@drawable/nota"
+                android:drawablePadding="5dp"
+                android:paddingStart="5dp"
+
+                tools:text="Applicant phone"
 
                 android:gravity="center_vertical"
 
@@ -70,28 +92,7 @@
 
                 app:layout_constraintStart_toEndOf="@+id/guidelineStart"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/codigo_carrera"
-        />
-
-        <TextView
-                android:id="@+id/titulo_carrera"
-
-                android:drawableStart="@drawable/title"
-                android:drawablePadding="5dp"
-                android:paddingStart="5dp"
-
-                tools:text="Applicant phone"
-
-                android:gravity="center_vertical"
-
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                app:layout_constraintHorizontal_bias="0.1"
-                android:layout_marginTop="5dp"
-
-                app:layout_constraintStart_toEndOf="@+id/guidelineStart"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nombre_carrera"
+                app:layout_constraintTop_toBottomOf="@+id/nombre_curso"
         />
 
 

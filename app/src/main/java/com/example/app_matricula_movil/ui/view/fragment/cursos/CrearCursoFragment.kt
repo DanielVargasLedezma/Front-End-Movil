@@ -17,6 +17,7 @@ import com.example.app_matricula_movil.data.repository.CarreraRepository
 import com.example.app_matricula_movil.data.repository.CursoRepository
 import com.example.app_matricula_movil.databinding.FragmentCrearCursoBinding
 import com.example.app_matricula_movil.ui.view.NavdrawActivity
+import com.example.app_matricula_movil.ui.view.fragment.carreras.CarrerasFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,11 +29,7 @@ import kotlinx.coroutines.launch
  */
 class CrearCursoFragment : Fragment() {
     private val ARG_PARAM1 = "param1"
-    private val ARG_PARAM2 = "param2"
-    private val ARG_PARAM3 = "param3"
 
-    private var token: String? = null
-    private var usuarioLoggeado: Usuario? = null
     private var carreraCompleja: CarreraCompleja? = null
 
     private var _binding: FragmentCrearCursoBinding? = null
@@ -58,9 +55,7 @@ class CrearCursoFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            token = it.getString(ARG_PARAM1)
-            usuarioLoggeado = it.getSerializable(ARG_PARAM2) as Usuario?
-            carreraCompleja = it.getSerializable(ARG_PARAM3) as CarreraCompleja?
+            carreraCompleja = it.getSerializable(ARG_PARAM1) as CarreraCompleja?
         }
     }
 
@@ -74,7 +69,7 @@ class CrearCursoFragment : Fragment() {
         setAdapterCiclo()
 
         CoroutineScope(Dispatchers.IO).launch {
-            val response = carreraRepository.getCarreras(token!!)
+            val response = carreraRepository.getCarreras((activity as NavdrawActivity).token!!)
 
             if (response != null) {
                 activity!!.runOnUiThread {
@@ -114,11 +109,18 @@ class CrearCursoFragment : Fragment() {
                     cursoAInsertar.creditos = creditosCurso.text.toString().toInt()
 
                     CoroutineScope(Dispatchers.IO).launch {
-                        val response = cursoRepository.insertarCurso(cursoAInsertar, token!!)
+                        val response =
+                            cursoRepository.insertarCurso(cursoAInsertar, (activity as NavdrawActivity).token!!)
 
                         if (response) {
                             activity!!.runOnUiThread {
-                                iniciarCursos()
+                                if (carreraCompleja != null) {
+                                    (activity as NavdrawActivity).supportActionBar?.title = "Carreras Registradas"
+
+                                    swapFragments(
+                                        CarrerasFragment.newInstance()
+                                    )
+                                } else iniciarCursos()
                             }
                         } else {
                             activity!!.runOnUiThread {
@@ -139,6 +141,10 @@ class CrearCursoFragment : Fragment() {
                     )
                         .show()
                 }
+            }
+
+            goBack.setOnClickListener {
+                iniciarCursos()
             }
         }
 
@@ -266,18 +272,24 @@ class CrearCursoFragment : Fragment() {
     }
 
     private fun iniciarCursos() {
-        val fragmentTransaction = parentFragmentManager.beginTransaction()
-
         if (carreraCompleja == null) {
             (activity as NavdrawActivity).supportActionBar?.title = "Cursos Registrados"
         } else {
             (activity as NavdrawActivity).supportActionBar?.title = "Cursos de ${carreraCompleja!!.codigo_carrera}"
         }
 
-        fragmentTransaction.replace(
-            R.id.contentMain, CursosFragment.newInstance(
-                token!!, usuarioLoggeado!!, carreraCompleja
+        swapFragments(
+            CursosFragment.newInstance(
+                carreraCompleja
             )
+        )
+    }
+
+    private fun swapFragments(fragment: Fragment) {
+        val fragmentTransaction = parentFragmentManager.beginTransaction()
+
+        fragmentTransaction.replace(
+            R.id.contentMain, fragment
         )
 
         fragmentTransaction.commit()
@@ -297,17 +309,11 @@ class CrearCursoFragment : Fragment() {
          * @param param2 Parameter 2.
          * @return A new instance of fragment CrearCursoFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: Usuario, param3: CarreraCompleja? = null) =
+        fun newInstance(carreraElegida: CarreraCompleja? = null) =
             CrearCursoFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putSerializable(ARG_PARAM2, param2)
-
-                    if (param3 != null) {
-                        putSerializable(ARG_PARAM3, param3)
-                    }
+                    if (carreraElegida != null) putSerializable(ARG_PARAM1, carreraElegida)
                 }
             }
     }

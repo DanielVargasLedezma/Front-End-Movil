@@ -13,8 +13,10 @@ import com.example.app_matricula_movil.R
 import com.example.app_matricula_movil.data.models.Usuario
 import com.example.app_matricula_movil.data.repository.UsuarioRepository
 import com.example.app_matricula_movil.databinding.ActivityNavdrawBinding
+import com.example.app_matricula_movil.ui.view.fragment.carreras.CarrerasFragment
 import com.example.app_matricula_movil.ui.view.fragment.cursos.CursosFragment
 import com.example.app_matricula_movil.ui.view.fragment.grupos.GruposFragment
+import com.example.app_matricula_movil.ui.view.fragment.matricula.MatriculasFragment
 import com.example.app_matricula_movil.ui.view.fragment.ofertaAcademica.OfertaAcademicaFragment
 import com.example.app_matricula_movil.ui.view.fragment.usuarios.UsuariosFragment
 import kotlinx.coroutines.CoroutineScope
@@ -173,13 +175,16 @@ class NavdrawActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
                     )
                 )
             }
+            R.id.carreras -> {
+                supportActionBar?.title = "Carreras Registradas"
+                replaceFragments(
+                    CarrerasFragment.newInstance()
+                )
+            }
             R.id.cursos -> {
                 supportActionBar?.title = "Cursos Registrados"
                 replaceFragments(
-                    CursosFragment.newInstance(
-                        token!!,
-                        userLogged!!
-                    )
+                    CursosFragment.newInstance()
                 )
             }
             R.id.oferta_academica -> {
@@ -195,6 +200,12 @@ class NavdrawActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
                 supportActionBar?.title = "Grupos Asignados"
                 replaceFragments(
                     GruposFragment.newInstance(null, "GruposAsignados")
+                )
+            }
+            R.id.historial_matricula -> {
+                supportActionBar?.title = "Historial Académico"
+                replaceFragments(
+                    MatriculasFragment.newInstance()
                 )
             }
             R.id.logout -> {

@@ -1,12 +1,14 @@
 package com.example.app_matricula_movil.ui.view.fragment.cursos
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.app_matricula_movil.R
 import com.example.app_matricula_movil.data.models.Usuario
+import com.example.app_matricula_movil.data.models.carrera.CarreraCompleja
 import com.example.app_matricula_movil.data.models.curso.CursoComplejo
 import com.example.app_matricula_movil.databinding.FragmentCursoBinding
 import com.example.app_matricula_movil.ui.view.NavdrawActivity
@@ -21,11 +23,9 @@ class CursoFragment : Fragment() {
     private val ARG_PARAM1 = "param1"
     private val ARG_PARAM2 = "param2"
     private val ARG_PARAM3 = "param3"
-    private val ARG_PARAM4 = "param4"
 
     private var cursoAVer: CursoComplejo? = null
-    private var token: String? = null
-    private var usuarioLoggeado: Usuario? = null
+    private var carreraCompleja: CarreraCompleja? = null
     private var viendoVista: String? = null
 
     private var _binding: FragmentCursoBinding? = null
@@ -35,9 +35,8 @@ class CursoFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             cursoAVer = it.getSerializable(ARG_PARAM1) as CursoComplejo?
-            token = it.getString(ARG_PARAM2)
-            usuarioLoggeado = it.getSerializable(ARG_PARAM3) as Usuario?
-            viendoVista = it.getString(ARG_PARAM4)
+            carreraCompleja = it.getSerializable(ARG_PARAM2) as CarreraCompleja?
+            viendoVista = it.getString(ARG_PARAM3)
         }
     }
 
@@ -67,9 +66,25 @@ class CursoFragment : Fragment() {
                     )
                 )
             }
+
+            goBack.setOnClickListener {
+                iniciarCursos()
+            }
         }
 
         return binding.root
+    }
+
+    private fun iniciarCursos() {
+        if (carreraCompleja == null) {
+            (activity as NavdrawActivity).supportActionBar?.title = "Cursos Registrados"
+        } else {
+            (activity as NavdrawActivity).supportActionBar?.title = "Cursos de ${carreraCompleja!!.codigo_carrera}"
+        }
+
+        swapFragments(
+            CursosFragment.newInstance(carreraCompleja, viendoVista)
+        )
     }
 
     private fun swapFragments(fragment: Fragment) {
@@ -103,24 +118,19 @@ class CursoFragment : Fragment() {
          * this fragment using the provided parameters.
          *
          * @param cursoAVer Curso a visualizar.
-         * @param token Token para validarse con el API.
-         * @param usuarioLoggeado Usuario que inició sesión.
+         * @param carreraElegida Carrera de la que se están viendo los cursos.
          * @param tipoVista Como se está viendo (Oferta Académica o normal).
          * @return A new instance of fragment CursoFragment.
          */
         @JvmStatic
         fun newInstance(
-            cursoAVer: CursoComplejo,
-            token: String? = null,
-            usuarioLoggeado: Usuario? = null,
-            tipoVista: String? = null
+            cursoAVer: CursoComplejo, carreraElegida: CarreraCompleja? = null, tipoVista: String? = null
         ) =
             CursoFragment().apply {
                 arguments = Bundle().apply {
                     putSerializable(ARG_PARAM1, cursoAVer)
-                    if (token != null) putString(ARG_PARAM2, token)
-                    if (usuarioLoggeado != null) putSerializable(ARG_PARAM3, usuarioLoggeado)
-                    if (tipoVista != null) putString(ARG_PARAM4, tipoVista)
+                    if (carreraElegida != null) putSerializable(ARG_PARAM2, carreraElegida)
+                    if (tipoVista != null) putString(ARG_PARAM3, tipoVista)
                 }
             }
     }
