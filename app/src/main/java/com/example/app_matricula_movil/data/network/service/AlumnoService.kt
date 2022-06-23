@@ -6,9 +6,13 @@ import com.example.app_matricula_movil.data.models.alumno.Alumno
 import com.example.app_matricula_movil.data.models.profesor.Profesor
 import com.example.app_matricula_movil.data.network.controller.AlumnoController
 import com.example.app_matricula_movil.data.network.controller.ProfesorController
+import com.example.app_matricula_movil.data.network.controller.UsuarioController
 import com.example.app_matricula_movil.data.responses.AlumnoResponseLogin
+import com.example.app_matricula_movil.data.responses.GetAlumnosResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.create
+import java.util.StringJoiner
 
 class AlumnoService {
     /*
@@ -43,6 +47,67 @@ class AlumnoService {
                  */
                 Log.v("MainActivity", "$response")
                 null
+            }
+        }
+    }
+
+    suspend fun getAlumnos(token: String): GetAlumnosResponse?{
+        return withContext(Dispatchers.IO) {
+            val response = RetrofitHelper.getRetrofit(token)
+                .create(AlumnoController::class.java)
+                .getAlumnos()
+
+            if (response.isSuccessful) {
+                response.body()
+            } else {
+                null
+            }
+        }
+
+    }
+
+    suspend fun registrarAlumno(alumno: Alumno, token: String): Boolean{
+        return withContext(Dispatchers.IO) {
+            val response = RetrofitHelper.getRetrofit(token)
+                .create(AlumnoController::class.java)
+                .registrarAlumno(alumno)
+
+            if (response.isSuccessful) {
+                true
+            } else {
+                Log.v("MainActivity", "$response")
+                false
+            }
+        }
+
+    }
+    suspend fun editarAlumno(alumno: Alumno, token: String): Boolean{
+        return withContext(Dispatchers.IO){
+            val response = RetrofitHelper.getRetrofit(token)
+                .create(AlumnoController::class.java)
+                .editarAlumno(alumno, alumno.cedula_alumno)
+
+            if (response.isSuccessful) {
+                true
+            } else {
+                Log.v("MainActivity", "$response")
+                false
+            }
+
+        }
+
+    }
+    suspend fun eliminarAlumno(cedula_alumno: String, token: String): Boolean{
+        return withContext(Dispatchers.IO) {
+            val response = RetrofitHelper.getRetrofit(token)
+                .create(AlumnoController::class.java)
+                .eliminarAlumno(cedula_alumno)
+
+            if (response.isSuccessful) {
+                true
+            } else {
+                Log.v("MainActivity", "$response")
+                false
             }
         }
     }
