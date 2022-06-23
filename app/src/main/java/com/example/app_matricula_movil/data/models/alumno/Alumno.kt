@@ -8,5 +8,6 @@ data class Alumno(
     @SerializedName("nombre") var nombre: String = "",
     @SerializedName("telefono") var telefono: Int = 0,
     @SerializedName("correoe") var correo: String = "",
+    @SerializedName("codigo_carrera") var codigo_carrera: String = "",
     @SerializedName("fecha_nacimiento") var fecha_nacimiento: String = "",
 ) : java.io.Serializable

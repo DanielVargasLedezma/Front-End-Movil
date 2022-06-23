@@ -17,11 +17,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app_matricula_movil.R
 import com.example.app_matricula_movil.data.models.Usuario
+import com.example.app_matricula_movil.data.models.alumno.Alumno
 import com.example.app_matricula_movil.data.models.curso.CursoComplejo
 import com.example.app_matricula_movil.data.models.grupo.GrupoComplejo
 import com.example.app_matricula_movil.data.repository.GrupoRepository
+import com.example.app_matricula_movil.data.repository.MatriculaRepository
 import com.example.app_matricula_movil.databinding.FragmentGruposBinding
 import com.example.app_matricula_movil.ui.view.NavdrawActivity
+import com.example.app_matricula_movil.ui.view.fragment.matricula.HacerMatriculaFragment
 import com.example.app_matricula_movil.ui.view.recyclerView.gruposRecyclerView.GrupoAdapter
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import kotlinx.coroutines.CoroutineScope
@@ -38,9 +41,11 @@ import kotlin.collections.ArrayList
 class GruposFragment : Fragment() {
     private val ARG_PARAM1 = "param1"
     private val ARG_PARAM2 = "param2"
+    private val ARG_PARAM3 = "param3"
 
     private var cursoElegido: CursoComplejo? = null
     private var viendoVista: String? = null
+    private var alumnoElegido: Alumno? = null
 
     private var _binding: FragmentGruposBinding? = null
     private val binding get() = _binding!!
@@ -50,12 +55,14 @@ class GruposFragment : Fragment() {
     private var grupos: ArrayList<GrupoComplejo> = arrayListOf()
 
     private val grupoRepository = GrupoRepository()
+    private val matriculaRepository = MatriculaRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             cursoElegido = it.getSerializable(ARG_PARAM1) as CursoComplejo?
             viendoVista = it.getString(ARG_PARAM2)
+            alumnoElegido = it.getSerializable(ARG_PARAM3) as Alumno?
         }
     }
 
@@ -101,7 +108,7 @@ class GruposFragment : Fragment() {
                     if (response != null) {
                         activity!!.runOnUiThread {
                             grupos.clear()
-                            grupos.addAll(response.grupos.filter{
+                            grupos.addAll(response.grupos.filter {
                                 it.ciclo.ciclo_activo == 1
                             })
                         }
@@ -113,22 +120,59 @@ class GruposFragment : Fragment() {
                     }
                 }
             }
+            "GruposMatriculadosAlumno" -> {
+                CoroutineScope(Dispatchers.IO).launch {
+                    val response =
+                        grupoRepository.getGruposMatriculadosDeAlumno(
+                            alumnoElegido!!.cedula_alumno,
+                            (activity as NavdrawActivity).token!!
+                        )
+
+                    if (response != null) {
+                        activity!!.runOnUiThread {
+                            grupos.clear()
+                            grupos.addAll(response.grupos.filter {
+                                it.ciclo.ciclo_activo == 1
+                            })
+                        }
+                    }
+
+                    activity!!.runOnUiThread {
+                        initRecyclerView()
+                        setSearchBar()
+                        setRecyclerViewsItemsTouchHelperMatricula()
+                    }
+                }
+            }
         }
 
 
         binding.apply {
-            if (viendoVista == "OfertaAcademica") {
-                fab.setOnClickListener {
-                    (activity as NavdrawActivity).supportActionBar?.title = "Registrar Grupo"
+            when (viendoVista) {
+                "OfertaAcademica" -> {
+                    fab.setOnClickListener {
+                        (activity as NavdrawActivity).supportActionBar?.title = "Registrar Grupo"
 
-                    swapFragments(
-                        CrearGrupoFragment.newInstance(
-                            cursoElegido!!, viendoVista!!
+                        swapFragments(
+                            CrearGrupoFragment.newInstance(
+                                cursoElegido!!, viendoVista!!
+                            )
                         )
-                    )
+                    }
                 }
-            } else {
-                fab.visibility = View.GONE
+                "GruposMatriculadosAlumno" -> {
+                    fab.setOnClickListener {
+                        (activity as NavdrawActivity).supportActionBar?.title =
+                            "Matricular grupo a ${alumnoElegido!!.cedula_alumno}"
+
+                        swapFragments(
+                            HacerMatriculaFragment.newInstance(alumnoElegido!!, viendoVista)
+                        )
+                    }
+                }
+                else -> {
+                    fab.visibility = View.GONE
+                }
             }
         }
 
@@ -136,22 +180,55 @@ class GruposFragment : Fragment() {
     }
 
     private fun getGrupos() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val response =
-                grupoRepository.getGruposDeCurso(cursoElegido!!.codigo_curso, (activity as NavdrawActivity).token!!)
+        when (viendoVista) {
+            "OfertaAcademica" -> {
+                CoroutineScope(Dispatchers.IO).launch {
+                    val response =
+                        grupoRepository.getGruposDeCurso(
+                            cursoElegido!!.codigo_curso,
+                            (activity as NavdrawActivity).token!!
+                        )
 
-            if (response != null) {
-                activity!!.runOnUiThread {
-                    grupos.clear()
-                    grupos.addAll(response.grupos)
+                    if (response != null) {
+                        activity!!.runOnUiThread {
+                            grupos.clear()
+                            grupos.addAll(response.grupos.filter {
+                                it.ciclo.ciclo_activo == 1
+                            })
 
-                    actualizarRecyclerView()
+                            actualizarRecyclerView()
+                        }
+                    } else {
+                        activity!!.runOnUiThread {
+                            grupos.clear()
+                            actualizarRecyclerView()
+                        }
+                    }
                 }
-            } else {
-                activity!!.runOnUiThread {
-                    grupos = arrayListOf()
+            }
+            "GruposMatriculadosAlumno" -> {
+                CoroutineScope(Dispatchers.IO).launch {
+                    val response =
+                        grupoRepository.getGruposMatriculadosDeAlumno(
+                            alumnoElegido!!.cedula_alumno,
+                            (activity as NavdrawActivity).token!!
+                        )
 
-                    actualizarRecyclerView()
+                    if (response != null) {
+                        activity!!.runOnUiThread {
+                            grupos.clear()
+                            grupos.addAll(response.grupos.filter {
+                                it.ciclo.ciclo_activo == 1
+                            })
+
+                            actualizarRecyclerView()
+                        }
+                    } else {
+                        activity!!.runOnUiThread {
+                            grupos.clear()
+                            actualizarRecyclerView()
+                        }
+                    }
                 }
             }
         }
@@ -186,6 +263,125 @@ class GruposFragment : Fragment() {
             adapter = GrupoAdapter(grupos) { onItemSelected(it) }
 
             recyclerView.adapter = adapter
+        }
+    }
+
+    private fun setRecyclerViewsItemsTouchHelperMatricula() {
+        val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
+            ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.START or ItemTouchHelper.END,
+            ItemTouchHelper.LEFT
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                val fromPosition: Int = viewHolder.adapterPosition
+                val toPosition: Int = target.adapterPosition
+
+                Collections.swap(grupos, fromPosition, toPosition)
+
+                binding.apply {
+                    recyclerView.adapter?.notifyItemMoved(fromPosition, toPosition)
+                }
+
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+
+                if (direction == ItemTouchHelper.LEFT) {
+                    binding.apply {
+                        AlertDialog.Builder(this@GruposFragment.context!!).apply {
+                            setTitle("¿Está seguro de desmatricular este grupo?")
+                            setMessage("Esta acción removerá desmatriculará el grupo y es irreversible.")
+
+                            setPositiveButton("Aceptar") { _: DialogInterface, _: Int ->
+                                CoroutineScope(Dispatchers.IO).launch {
+                                    val response =
+                                        matriculaRepository.desmatricularGrupo(
+                                            alumnoElegido!!.cedula_alumno,
+                                            grupos[position].numero_grupo,
+                                            (activity as NavdrawActivity).token!!
+                                        )
+
+                                    if (response) {
+                                        activity!!.runOnUiThread {
+                                            getGrupos()
+
+                                            grupos.removeAt(position)
+                                            recyclerView.adapter?.notifyItemRemoved(position)
+
+                                            actualizarRecyclerView()
+                                        }
+                                    } else {
+                                        activity!!.runOnUiThread {
+                                            actualizarRecyclerView()
+                                            Toast.makeText(
+                                                this@GruposFragment.context,
+                                                "Error al eliminar",
+                                                Toast.LENGTH_SHORT
+                                            )
+                                                .show()
+                                        }
+                                    }
+                                }
+                            }
+
+                            setNegativeButton("Cancelar") { _: DialogInterface, _: Int ->
+                                actualizarRecyclerView()
+
+                                Toast.makeText(
+                                    this@GruposFragment.context,
+                                    "Acción cancelada",
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                            }
+                        }.show()
+                    }
+                }
+            }
+
+            override fun onChildDraw(
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+
+                RecyclerViewSwipeDecorator.Builder(
+                    this@GruposFragment.context,
+                    c,
+                    recyclerView,
+                    viewHolder,
+                    dX,
+                    dY,
+                    actionState,
+                    isCurrentlyActive
+                )
+                    .addSwipeLeftBackgroundColor(
+                        ContextCompat.getColor(
+                            this@GruposFragment.context!!,
+                            R.color.red
+                        )
+                    )
+                    .addSwipeLeftActionIcon(R.drawable.delete_icon)
+                    .create()
+                    .decorate()
+
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+
+        binding.apply {
+            itemTouchHelper.attachToRecyclerView(recyclerView)
         }
     }
 
@@ -325,11 +521,13 @@ class GruposFragment : Fragment() {
     }
 
     private fun onItemSelected(grupo: GrupoComplejo) {
-        (activity as NavdrawActivity).supportActionBar?.title = "Visualizar Grupo"
+        if (alumnoElegido == null) (activity as NavdrawActivity).supportActionBar?.title = "Visualizar Grupo"
+        else (activity as NavdrawActivity).supportActionBar?.title =
+            "Matrícula Realizada de ${alumnoElegido!!.cedula_alumno}"
 
         swapFragments(
             GrupoFragment.newInstance(
-                grupo, cursoElegido, viendoVista
+                grupo, cursoElegido, viendoVista, alumnoElegido
             )
         )
     }
@@ -354,19 +552,22 @@ class GruposFragment : Fragment() {
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
+         * @param cursoElegido Curso del cual se van a ver los grupos.
+         * @param tipoVista Qué se está visualizando.
+         * @param alumnoElegido Alumno del que se van a ver los grupos matriculados.
          * @return A new instance of fragment GruposFragment.
          */
         @JvmStatic
         fun newInstance(
             cursoElegido: CursoComplejo? = null,
-            tipoVista: String? = null
+            tipoVista: String? = null,
+            alumnoElegido: Alumno? = null
         ) =
             GruposFragment().apply {
                 arguments = Bundle().apply {
                     if (cursoElegido != null) putSerializable(ARG_PARAM1, cursoElegido)
                     if (tipoVista != null) putString(ARG_PARAM2, tipoVista)
+                    if (alumnoElegido != null) putSerializable(ARG_PARAM3, alumnoElegido)
                 }
             }
     }

@@ -1,6 +1,7 @@
 package com.example.app_matricula_movil.data.network.controller
 
 import com.example.app_matricula_movil.data.models.grupo.Grupo
+import com.example.app_matricula_movil.data.models.matricula.Matricula
 import com.example.app_matricula_movil.data.responses.grupo.GetGruposDeCursoResponse
 import retrofit2.Response
 import retrofit2.http.Body
@@ -15,6 +16,12 @@ interface GrupoController {
 
     @GET("grupos/profesor/{profesor}")
     suspend fun getGruposDeProfesor(@Path("profesor") cedula_usuario: String): Response<GetGruposDeCursoResponse>
+
+    @GET("grupos/alumno/{alumno}")
+    suspend fun getGruposMatriculadosDeAlumno(@Path("alumno") cedula_alumno: String): Response<GetGruposDeCursoResponse>
+
+    @GET("grupos/carrera/{carrera}")
+    suspend fun getGruposDeCarrera(@Path("carrera") codigo_carrera: String): Response<GetGruposDeCursoResponse>
 
     @POST("crear-grupo")
     suspend fun insertarGrupo(@Body grupo: Grupo): Response<Void>

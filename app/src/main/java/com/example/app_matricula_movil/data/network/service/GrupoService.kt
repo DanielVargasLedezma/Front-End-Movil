@@ -31,6 +31,28 @@ class GrupoService {
         }
     }
 
+    suspend fun getGruposMatriculadosDeAlumno(cedula_alumno: String, token: String): GetGruposDeCursoResponse? {
+        return withContext(Dispatchers.IO) {
+            val response = RetrofitHelper.getRetrofit(token)
+                .create(GrupoController::class.java)
+                .getGruposMatriculadosDeAlumno(cedula_alumno)
+
+            if (response.isSuccessful) response.body()
+            else null
+        }
+    }
+
+    suspend fun getGruposDeCarrera(codigo_carrera: String, token: String): GetGruposDeCursoResponse? {
+        return withContext(Dispatchers.IO) {
+            val response = RetrofitHelper.getRetrofit(token)
+                .create(GrupoController::class.java)
+                .getGruposDeCarrera(codigo_carrera)
+
+            if (response.isSuccessful) response.body()
+            else null
+        }
+    }
+
     suspend fun insertarGrupo(grupo: Grupo, token: String): Boolean {
         return withContext(Dispatchers.IO) {
             val response = RetrofitHelper.getRetrofit(token)

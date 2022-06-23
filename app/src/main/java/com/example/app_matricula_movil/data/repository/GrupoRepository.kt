@@ -13,6 +13,12 @@ class GrupoRepository {
     suspend fun getGruposDeProfesor(cedula_profesor: String, token: String): GetGruposDeCursoResponse? =
         grupoService.getGruposDeProfesor(cedula_profesor, token)
 
+    suspend fun getGruposMatriculadosDeAlumno(cedula_alumno: String, token: String): GetGruposDeCursoResponse? =
+        grupoService.getGruposMatriculadosDeAlumno(cedula_alumno, token)
+
+    suspend fun getGruposDeCarrera(codigo_carrera: String, token: String): GetGruposDeCursoResponse? =
+        grupoService.getGruposDeCarrera(codigo_carrera, token)
+
     suspend fun insertarGrupo(grupo: Grupo, token: String): Boolean = grupoService.insertarGrupo(grupo, token)
 
     suspend fun editarGrupo(grupo: Grupo, token: String): Boolean = grupoService.editarGrupo(grupo, token)
