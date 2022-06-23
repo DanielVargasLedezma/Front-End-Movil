@@ -13,6 +13,7 @@ import com.example.app_matricula_movil.R
 import com.example.app_matricula_movil.data.models.Usuario
 import com.example.app_matricula_movil.data.repository.UsuarioRepository
 import com.example.app_matricula_movil.databinding.ActivityNavdrawBinding
+import com.example.app_matricula_movil.ui.view.fragment.alumnos.AlumnosFragment
 import com.example.app_matricula_movil.ui.view.fragment.cursos.CursosFragment
 import com.example.app_matricula_movil.ui.view.fragment.usuarios.UsuariosFragment
 import kotlinx.coroutines.CoroutineScope
@@ -177,6 +178,13 @@ class NavdrawActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
                     CursosFragment.newInstance(
                         token!!,
                         userLogged!!
+                    )
+                )
+            }
+            R.id.alumnos->{
+                supportActionBar?.title = "Alumnos Registrados"
+                replaceFragments(AlumnosFragment.newInstance(
+                    token!!, userLogged!!
                     )
                 )
             }
