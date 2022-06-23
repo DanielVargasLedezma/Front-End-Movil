@@ -9,6 +9,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.app_matricula_movil.R
 import com.example.app_matricula_movil.data.models.alumno.Alumno
+import com.example.app_matricula_movil.data.models.alumno.AlumnoComplejo
 import com.example.app_matricula_movil.data.models.grupo.GrupoComplejo
 import com.example.app_matricula_movil.data.models.matricula.MatriculaCompleja
 import com.example.app_matricula_movil.data.repository.MatriculaRepository
@@ -29,7 +30,7 @@ import kotlinx.coroutines.launch
 class MatriculasFragment : Fragment() {
     private val ARG_PARAM1 = "param1"
 
-    private var alumno: Alumno? = null
+    private var alumno: AlumnoComplejo? = null
 
     private var _binding: FragmentMatriculasBinding? = null
     private val binding get() = _binding!!
@@ -43,7 +44,7 @@ class MatriculasFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            alumno = it.getSerializable(ARG_PARAM1) as Alumno?
+            alumno = it.getSerializable(ARG_PARAM1) as AlumnoComplejo?
         }
     }
 
@@ -133,7 +134,7 @@ class MatriculasFragment : Fragment() {
          * @return A new instance of fragment MatriculasFragment.
          */
         @JvmStatic
-        fun newInstance(alumno: Alumno? = null) =
+        fun newInstance(alumno: AlumnoComplejo? = null) =
             MatriculasFragment().apply {
                 arguments = Bundle().apply {
                     if (alumno != null) putSerializable(ARG_PARAM1, alumno)

@@ -6,8 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.app_matricula_movil.R
-import com.example.app_matricula_movil.data.models.Usuario
-import com.example.app_matricula_movil.data.models.alumno.Alumno
+import com.example.app_matricula_movil.data.models.alumno.AlumnoComplejo
 import com.example.app_matricula_movil.data.models.curso.CursoComplejo
 import com.example.app_matricula_movil.data.models.grupo.GrupoComplejo
 import com.example.app_matricula_movil.databinding.FragmentGrupoBinding
@@ -27,7 +26,7 @@ class GrupoFragment : Fragment() {
     private var grupoAVer: GrupoComplejo? = null
     private var cursoElegido: CursoComplejo? = null
     private var viendoVista: String? = null
-    private var alumnoElegido: Alumno? = null
+    private var alumnoElegido: AlumnoComplejo? = null
 
     private var _binding: FragmentGrupoBinding? = null
     private val binding get() = _binding!!
@@ -38,7 +37,7 @@ class GrupoFragment : Fragment() {
             grupoAVer = it.getSerializable(ARG_PARAM1) as GrupoComplejo?
             cursoElegido = it.getSerializable(ARG_PARAM2) as CursoComplejo?
             viendoVista = it.getString(ARG_PARAM3)
-            alumnoElegido = it.getSerializable(ARG_PARAM4) as Alumno?
+            alumnoElegido = it.getSerializable(ARG_PARAM4) as AlumnoComplejo?
         }
     }
 
@@ -97,7 +96,8 @@ class GrupoFragment : Fragment() {
     }
 
     private fun getHorarioText(grupoComplejo: GrupoComplejo): String {
-        return if (grupoComplejo.dia_dos != null && grupoComplejo.dia_dos != "" && grupoComplejo.dia_dos != "null") "${grupoComplejo.dia_uno} / ${grupoComplejo.dia_dos} - ${grupoComplejo.horario}"
+        return if (grupoComplejo.dia_dos != null && grupoComplejo.dia_dos != "" && grupoComplejo.dia_dos != "null")
+            "${grupoComplejo.dia_uno} / ${grupoComplejo.dia_dos} - ${grupoComplejo.horario}"
         else "${grupoComplejo.dia_uno} - ${grupoComplejo.horario}"
     }
 
@@ -143,7 +143,7 @@ class GrupoFragment : Fragment() {
             grupoAVer: GrupoComplejo,
             cursoElegido: CursoComplejo? = null,
             tipoVista: String? = null,
-            alumnoElegido: Alumno? = null
+            alumnoElegido: AlumnoComplejo? = null
         ) =
             GrupoFragment().apply {
                 arguments = Bundle().apply {

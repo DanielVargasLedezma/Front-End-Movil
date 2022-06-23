@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.example.app_matricula_movil.R
 import com.example.app_matricula_movil.data.models.alumno.Alumno
+import com.example.app_matricula_movil.data.models.alumno.AlumnoComplejo
 import com.example.app_matricula_movil.data.models.grupo.GrupoComplejo
 import com.example.app_matricula_movil.data.models.matricula.Matricula
 import com.example.app_matricula_movil.data.repository.GrupoRepository
@@ -30,7 +31,7 @@ class HacerMatriculaFragment : Fragment() {
     private val ARG_PARAM1 = "param1"
     private val ARG_PARAM2 = "param2"
 
-    private var alumnoElegido: Alumno? = null
+    private var alumnoElegido: AlumnoComplejo? = null
     private var tipoVista: String? = null
 
     private var _binding: FragmentHacerMatriculaBinding? = null
@@ -48,7 +49,7 @@ class HacerMatriculaFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            alumnoElegido = it.getSerializable(ARG_PARAM1) as Alumno?
+            alumnoElegido = it.getSerializable(ARG_PARAM1) as AlumnoComplejo?
             tipoVista = it.getString(ARG_PARAM2)
         }
     }
@@ -61,7 +62,7 @@ class HacerMatriculaFragment : Fragment() {
 
         CoroutineScope(Dispatchers.IO).launch {
             val response = grupoRepository.getGruposDeCarrera(
-                alumnoElegido!!.codigo_carrera,
+                alumnoElegido!!.carrera.codigo_carrera,
                 (activity as NavdrawActivity).token!!
             )
 
@@ -203,7 +204,7 @@ class HacerMatriculaFragment : Fragment() {
          * @return A new instance of fragment HacerMatriculaFragment.
          */
         @JvmStatic
-        fun newInstance(alumno: Alumno, tipoVista: String? = null) =
+        fun newInstance(alumno: AlumnoComplejo, tipoVista: String? = null) =
             HacerMatriculaFragment().apply {
                 arguments = Bundle().apply {
                     putSerializable(ARG_PARAM1, alumno)

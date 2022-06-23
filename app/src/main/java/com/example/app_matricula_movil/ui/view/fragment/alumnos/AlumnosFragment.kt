@@ -31,24 +31,19 @@ import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.ArrayList
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
-
 /**
  * A simple [Fragment] subclass.
  * Use the [AlumnosFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
 class AlumnosFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private val ARG_PARAM1 = "param1"
     private val ARG_PARAM2 = "param2"
-
+    private val ARG_PARAM3 = "param3"
 
     private var token: String? = null
     private var usuarioLoggeado: Usuario? = null
-    private var carreraCompleja: CarreraCompleja? = null
+    private var tipoVista: String? = null
 
     private var _binding: FragmentAlumnosBinding? = null
     private val binding get() = _binding!!
@@ -59,13 +54,12 @@ class AlumnosFragment : Fragment() {
 
     private val alumnoRepository = AlumnoRepository()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             token = it.getString(ARG_PARAM1)
             usuarioLoggeado = it.getSerializable(ARG_PARAM2) as Usuario?
-
+            tipoVista = it.getString(ARG_PARAM3)
         }
     }
 
@@ -74,38 +68,39 @@ class AlumnosFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentAlumnosBinding.inflate(inflater, container, false)
-        // Inflate the layout for this fragment
-            CoroutineScope(Dispatchers.IO).launch {
-                val response = alumnoRepository.getAlumnos(token!!)
 
-                if (response != null) {
-                    activity!!.runOnUiThread {
-                        alumnos.addAll(response.alumnos)
-                    }
-                }
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = alumnoRepository.getAlumnos(token!!)
 
+            if (response != null) {
                 activity!!.runOnUiThread {
-                    initRecyclerView()
-                    setSearchBar()
-                    setRecyclerViewsItemsTouchHelper()
+                    alumnos.addAll(response.alumnos)
                 }
-
             }
+
+            activity!!.runOnUiThread {
+                initRecyclerView()
+                setSearchBar()
+                if (tipoVista == null) setRecyclerViewsItemsTouchHelper()
+                else binding.fab.visibility = View.GONE
+            }
+
+        }
 
         binding.apply {
             fab.setOnClickListener {
                 (activity as NavdrawActivity).supportActionBar?.title = "Registrar Alumno"
-                    swapFragments(
-                        CrearAlumnoFragment.newInstance(
-                            token!!, usuarioLoggeado!!
-                        )
+                swapFragments(
+                    CrearAlumnoFragment.newInstance(
+                        token!!, usuarioLoggeado!!
                     )
-                }
+                )
             }
+        }
 
-            return binding.root
-
+        return binding.root
     }
+
     private fun getAlumnos() {
         CoroutineScope(Dispatchers.IO).launch {
             val response = alumnoRepository.getAlumnos(token!!)
@@ -126,6 +121,7 @@ class AlumnosFragment : Fragment() {
             }
         }
     }
+
     private fun initRecyclerView() {
         binding.apply {
             recyclerView.layoutManager = LinearLayoutManager(this@AlumnosFragment.context)
@@ -134,6 +130,7 @@ class AlumnosFragment : Fragment() {
             recyclerView.setHasFixedSize(true)
         }
     }
+
     private fun setSearchBar() {
         binding.apply {
             applicationSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -156,6 +153,7 @@ class AlumnosFragment : Fragment() {
             recyclerView.adapter = adapter
         }
     }
+
     private fun setRecyclerViewsItemsTouchHelper() {
         val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.START or ItemTouchHelper.END,
@@ -288,15 +286,17 @@ class AlumnosFragment : Fragment() {
             itemTouchHelper.attachToRecyclerView(recyclerView)
         }
     }
+
     private fun onItemSelected(alumno: AlumnoComplejo) {
         (activity as NavdrawActivity).supportActionBar?.title = "Visualizar Alumno"
 
         swapFragments(
             AlumnoFragment.newInstance(
-                alumno
+                alumno, tipoVista
             )
         )
     }
+
     private fun swapFragments(fragment: Fragment) {
         val fragmentTransaction = parentFragmentManager.beginTransaction()
 
@@ -306,6 +306,7 @@ class AlumnosFragment : Fragment() {
 
         fragmentTransaction.commit()
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -318,16 +319,16 @@ class AlumnosFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
+         * @param tipoVista Para qué se está usando el fragment.
          * @return A new instance of fragment AlumnosFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: Usuario) =
+        fun newInstance(param1: String, param2: Usuario, tipoVista: String? = null) =
             AlumnosFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putSerializable(ARG_PARAM2, param2)
-
+                    if (tipoVista != null) putString(ARG_PARAM3, tipoVista)
                 }
             }
     }

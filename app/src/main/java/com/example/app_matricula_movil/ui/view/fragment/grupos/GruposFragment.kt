@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.app_matricula_movil.R
 import com.example.app_matricula_movil.data.models.Usuario
 import com.example.app_matricula_movil.data.models.alumno.Alumno
+import com.example.app_matricula_movil.data.models.alumno.AlumnoComplejo
 import com.example.app_matricula_movil.data.models.curso.CursoComplejo
 import com.example.app_matricula_movil.data.models.grupo.GrupoComplejo
 import com.example.app_matricula_movil.data.repository.GrupoRepository
@@ -45,7 +46,7 @@ class GruposFragment : Fragment() {
 
     private var cursoElegido: CursoComplejo? = null
     private var viendoVista: String? = null
-    private var alumnoElegido: Alumno? = null
+    private var alumnoElegido: AlumnoComplejo? = null
 
     private var _binding: FragmentGruposBinding? = null
     private val binding get() = _binding!!
@@ -62,7 +63,7 @@ class GruposFragment : Fragment() {
         arguments?.let {
             cursoElegido = it.getSerializable(ARG_PARAM1) as CursoComplejo?
             viendoVista = it.getString(ARG_PARAM2)
-            alumnoElegido = it.getSerializable(ARG_PARAM3) as Alumno?
+            alumnoElegido = it.getSerializable(ARG_PARAM3) as AlumnoComplejo?
         }
     }
 
@@ -561,7 +562,7 @@ class GruposFragment : Fragment() {
         fun newInstance(
             cursoElegido: CursoComplejo? = null,
             tipoVista: String? = null,
-            alumnoElegido: Alumno? = null
+            alumnoElegido: AlumnoComplejo? = null
         ) =
             GruposFragment().apply {
                 arguments = Bundle().apply {

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.app_matricula_movil.R
 import com.example.app_matricula_movil.data.models.alumno.Alumno
+import com.example.app_matricula_movil.data.models.alumno.AlumnoComplejo
 import com.example.app_matricula_movil.data.models.grupo.GrupoComplejo
 import com.example.app_matricula_movil.data.models.matricula.MatriculaCompleja
 import com.example.app_matricula_movil.databinding.FragmentMatriculaBinding
@@ -22,7 +23,7 @@ class MatriculaFragment : Fragment() {
     private val ARG_PARAM2 = "param2"
 
     private var matriculaAVer: MatriculaCompleja? = null
-    private var alumno: Alumno? = null
+    private var alumno: AlumnoComplejo? = null
 
     private var _binding: FragmentMatriculaBinding? = null
     private val binding get() = _binding!!
@@ -31,7 +32,7 @@ class MatriculaFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             matriculaAVer = it.getSerializable(ARG_PARAM1) as MatriculaCompleja?
-            alumno = it.getSerializable(ARG_PARAM2) as Alumno?
+            alumno = it.getSerializable(ARG_PARAM2) as AlumnoComplejo?
         }
     }
 
@@ -106,7 +107,7 @@ class MatriculaFragment : Fragment() {
          * @return A new instance of fragment MatriculaFragment.
          */
         @JvmStatic
-        fun newInstance(matricula: MatriculaCompleja, alumno: Alumno? = null) = MatriculaFragment().apply {
+        fun newInstance(matricula: MatriculaCompleja, alumno: AlumnoComplejo? = null) = MatriculaFragment().apply {
             arguments = Bundle().apply {
                 putSerializable(ARG_PARAM1, matricula)
                 if (alumno != null) putSerializable(ARG_PARAM2, alumno)

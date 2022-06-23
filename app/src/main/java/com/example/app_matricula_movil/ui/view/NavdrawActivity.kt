@@ -188,12 +188,28 @@ class NavdrawActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
                     CursosFragment.newInstance()
                 )
             }
+            R.id.alumnos -> {
+                supportActionBar?.title = "Alumnos Registrados"
+                replaceFragments(
+                    AlumnosFragment.newInstance(
+                        token!!, userLogged!!
+                    )
+                )
+            }
             R.id.oferta_academica -> {
                 supportActionBar?.title = "Oferta Académica"
                 replaceFragments(
                     OfertaAcademicaFragment.newInstance(
                         userLogged!!,
                         token!!
+                    )
+                )
+            }
+            R.id.matricula -> {
+                supportActionBar?.title = "Alumnos Registrados"
+                replaceFragments(
+                    AlumnosFragment.newInstance(
+                        token!!, userLogged!!, "GruposMatriculadosAlumno"
                     )
                 )
             }
@@ -207,13 +223,6 @@ class NavdrawActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
                 supportActionBar?.title = "Historial Académico"
                 replaceFragments(
                     MatriculasFragment.newInstance()
-                )
-            }
-            R.id.alumnos->{
-                supportActionBar?.title = "Alumnos Registrados"
-                replaceFragments(AlumnosFragment.newInstance(
-                    token!!, userLogged!!
-                    )
                 )
             }
             R.id.logout -> {
