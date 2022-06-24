@@ -20,10 +20,15 @@ android {
         main {
             res.srcDirs =
             [
-                    'src/main/res/layout/carrera',
-                    'src/main/res/layout/usuario',
-                    'src/main/res/layout/curso',
-                    'src/main/res', 'src\\main\\res', 'src\\main\\res\\layout\\alumnos',
+                    'src\\main\\res',
+                    'src\\main\\res\\layout\\carrera',
+                    'src\\main\\res\\layout\\usuario',
+                    'src\\main\\res\\layout\\curso',
+                    'src\\main\\res\\layout\\ofertaAcademica',
+                    'src\\main\\res\\layout\\grupo',
+                    'src\\main\\res\\layout\\spinnerLayouts',
+                    'src\\main\\res\\layout\\matricula',
+                    'src\\main\\res\\layout\\alumnos',
             ]
         }
     }

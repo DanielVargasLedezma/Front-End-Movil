@@ -1,13 +1,18 @@
 package com.example.app_matricula_movil.ui.view.fragment.cursos
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.app_matricula_movil.R
+import com.example.app_matricula_movil.data.models.Usuario
+import com.example.app_matricula_movil.data.models.carrera.CarreraCompleja
 import com.example.app_matricula_movil.data.models.curso.CursoComplejo
 import com.example.app_matricula_movil.databinding.FragmentCursoBinding
+import com.example.app_matricula_movil.ui.view.NavdrawActivity
+import com.example.app_matricula_movil.ui.view.fragment.grupos.GruposFragment
 
 /**
  * A simple [Fragment] subclass.
@@ -16,8 +21,12 @@ import com.example.app_matricula_movil.databinding.FragmentCursoBinding
  */
 class CursoFragment : Fragment() {
     private val ARG_PARAM1 = "param1"
+    private val ARG_PARAM2 = "param2"
+    private val ARG_PARAM3 = "param3"
 
     private var cursoAVer: CursoComplejo? = null
+    private var carreraCompleja: CarreraCompleja? = null
+    private var viendoVista: String? = null
 
     private var _binding: FragmentCursoBinding? = null
     private val binding get() = _binding!!
@@ -26,6 +35,8 @@ class CursoFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             cursoAVer = it.getSerializable(ARG_PARAM1) as CursoComplejo?
+            carreraCompleja = it.getSerializable(ARG_PARAM2) as CarreraCompleja?
+            viendoVista = it.getString(ARG_PARAM3)
         }
     }
 
@@ -43,9 +54,47 @@ class CursoFragment : Fragment() {
             anyoACursar.setText(getStringYearMamalon(cursoAVer!!.anyo_a_llevar))
             cicloACursar.setText("${getStringCiclo()} ciclo")
             carrera.setText(cursoAVer!!.carrera.nombre)
+
+            if (viendoVista != null && viendoVista!! == "OfertaAcademica") grupos.visibility = View.VISIBLE
+
+            grupos.setOnClickListener {
+                (activity as NavdrawActivity).supportActionBar?.title = "Grupos del curso ${cursoAVer!!.codigo_curso}"
+
+                swapFragments(
+                    GruposFragment.newInstance(
+                        cursoAVer!!, viendoVista
+                    )
+                )
+            }
+
+            goBack.setOnClickListener {
+                iniciarCursos()
+            }
         }
 
         return binding.root
+    }
+
+    private fun iniciarCursos() {
+        if (carreraCompleja == null) {
+            (activity as NavdrawActivity).supportActionBar?.title = "Cursos Registrados"
+        } else {
+            (activity as NavdrawActivity).supportActionBar?.title = "Cursos de ${carreraCompleja!!.codigo_carrera}"
+        }
+
+        swapFragments(
+            CursosFragment.newInstance(carreraCompleja, viendoVista)
+        )
+    }
+
+    private fun swapFragments(fragment: Fragment) {
+        val fragmentTransaction = parentFragmentManager.beginTransaction()
+
+        fragmentTransaction.replace(
+            R.id.contentMain, fragment
+        )
+
+        fragmentTransaction.commit()
     }
 
     private fun getStringCiclo(): String {
@@ -68,16 +117,20 @@ class CursoFragment : Fragment() {
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
+         * @param cursoAVer Curso a visualizar.
+         * @param carreraElegida Carrera de la que se están viendo los cursos.
+         * @param tipoVista Como se está viendo (Oferta Académica o normal).
          * @return A new instance of fragment CursoFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: CursoComplejo) =
+        fun newInstance(
+            cursoAVer: CursoComplejo, carreraElegida: CarreraCompleja? = null, tipoVista: String? = null
+        ) =
             CursoFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable(ARG_PARAM1, param1)
+                    putSerializable(ARG_PARAM1, cursoAVer)
+                    if (carreraElegida != null) putSerializable(ARG_PARAM2, carreraElegida)
+                    if (tipoVista != null) putString(ARG_PARAM3, tipoVista)
                 }
             }
     }

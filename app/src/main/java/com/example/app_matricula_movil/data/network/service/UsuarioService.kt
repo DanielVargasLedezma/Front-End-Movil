@@ -4,7 +4,7 @@ import android.util.Log
 import com.example.app_matricula_movil.core.RetrofitHelper
 import com.example.app_matricula_movil.data.models.Usuario
 import com.example.app_matricula_movil.data.network.controller.UsuarioController
-import com.example.app_matricula_movil.data.responses.GetUsuariosResponse
+import com.example.app_matricula_movil.data.responses.usuario.GetUsuariosResponse
 import com.example.app_matricula_movil.data.responses.UsuarioResponseLogin
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

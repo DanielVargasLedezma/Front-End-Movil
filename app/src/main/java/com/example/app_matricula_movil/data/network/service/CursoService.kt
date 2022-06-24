@@ -4,7 +4,7 @@ import android.util.Log
 import com.example.app_matricula_movil.core.RetrofitHelper
 import com.example.app_matricula_movil.data.models.curso.Curso
 import com.example.app_matricula_movil.data.network.controller.CursoController
-import com.example.app_matricula_movil.data.responses.GetCursosResponse
+import com.example.app_matricula_movil.data.responses.curso.GetCursosResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

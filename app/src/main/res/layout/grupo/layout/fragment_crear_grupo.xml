@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/fondo_entidades"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".ui.view.fragment.cursos.CrearCursoFragment"
+>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+    >
+        <ImageButton
+                android:id="@+id/goBack"
+
+                android:contentDescription="Ir atrás"
+
+                android:src="@drawable/go_back"
+
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+
+                android:background="@android:color/transparent"
+
+                app:layout_constraintVertical_bias="0.05"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+        />
+
+        <ImageView
+                android:id="@+id/imagenUsuario"
+
+                android:src="@drawable/grupos_asignados"
+
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+
+                app:layout_constraintVertical_bias="0.05"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+        />
+
+        <EditText
+                android:id="@+id/numero_grupo"
+
+                android:background="@drawable/design"
+
+                android:inputType="text"
+                android:hint="Número de Grupo"
+                android:textColor="@drawable/edit_text"
+                android:textColorHint="@color/grisBonito"
+                android:gravity="center_vertical|center_horizontal"
+
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="70dp"
+                android:layout_marginEnd="70dp"
+                app:layout_constraintVertical_bias="0.05"
+
+                android:drawableStart="@drawable/hashtag"
+                android:paddingStart="5dp"
+                android:drawablePadding="-25dp"
+                android:drawableTint="@color/black"
+                tools:ignore="RtlSymmetry"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imagenUsuario"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+        <Spinner
+                android:id="@+id/profesor_spinner"
+
+                android:background="@drawable/design"
+
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="70dp"
+                android:layout_marginEnd="70dp"
+                app:layout_constraintVertical_bias="0.05"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/numero_grupo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+        <Spinner
+                android:id="@+id/ciclo_spinner"
+
+                android:background="@drawable/design"
+
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="70dp"
+                android:layout_marginEnd="70dp"
+                app:layout_constraintVertical_bias="0.05"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profesor_spinner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+        <Spinner
+                android:id="@+id/dia_uno_spinner"
+
+                android:background="@drawable/design"
+
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="70dp"
+                android:layout_marginEnd="70dp"
+                app:layout_constraintVertical_bias="0.05"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ciclo_spinner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+        <Spinner
+                android:id="@+id/dia_dos_spinner"
+
+                android:background="@drawable/design"
+
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="70dp"
+                android:layout_marginEnd="70dp"
+                app:layout_constraintVertical_bias="0.05"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dia_uno_spinner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+        <EditText
+                android:id="@+id/hora_inicio"
+
+                android:background="@drawable/design"
+
+                android:inputType="time"
+                android:hint="Hora de Inicio"
+                android:textColor="@drawable/edit_text"
+                android:textColorHint="@color/grisBonito"
+                android:gravity="center_vertical|center_horizontal"
+
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="70dp"
+                android:layout_marginEnd="70dp"
+                app:layout_constraintVertical_bias="0.05"
+
+                android:drawableStart="@drawable/creditos_curso"
+                android:paddingStart="5dp"
+                android:drawablePadding="-25dp"
+                android:drawableTint="@color/black"
+                tools:ignore="RtlSymmetry"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dia_dos_spinner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+        <EditText
+                android:id="@+id/hora_final"
+
+                android:background="@drawable/design"
+
+                android:inputType="time"
+                android:hint="Hora de Cierre"
+                android:textColor="@drawable/edit_text"
+                android:textColorHint="@color/grisBonito"
+                android:gravity="center_vertical|center_horizontal"
+
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="70dp"
+                android:layout_marginEnd="70dp"
+                app:layout_constraintVertical_bias="0.05"
+
+                android:drawableStart="@drawable/creditos_curso"
+                android:paddingStart="5dp"
+                android:drawablePadding="-25dp"
+                android:drawableTint="@color/black"
+                tools:ignore="RtlSymmetry"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hora_inicio"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+        <ImageButton
+                android:id="@+id/insertar"
+
+                android:background="@drawable/boton_verde"
+
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+
+                app:layout_constraintVertical_bias="0.20"
+
+                android:src="@drawable/save_icon"
+                android:tint="@color/white"
+                android:scaleType="fitCenter"
+                android:contentDescription="Añadir Usuario"
+
+                app:layout_constraintTop_toBottomOf="@+id/hora_final"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+        />
+
+        <Space
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/insertar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

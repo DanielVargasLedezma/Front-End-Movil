@@ -13,8 +13,12 @@ import com.example.app_matricula_movil.R
 import com.example.app_matricula_movil.data.models.Usuario
 import com.example.app_matricula_movil.data.repository.UsuarioRepository
 import com.example.app_matricula_movil.databinding.ActivityNavdrawBinding
+import com.example.app_matricula_movil.ui.view.fragment.carreras.CarrerasFragment
 import com.example.app_matricula_movil.ui.view.fragment.alumnos.AlumnosFragment
 import com.example.app_matricula_movil.ui.view.fragment.cursos.CursosFragment
+import com.example.app_matricula_movil.ui.view.fragment.grupos.GruposFragment
+import com.example.app_matricula_movil.ui.view.fragment.matricula.MatriculasFragment
+import com.example.app_matricula_movil.ui.view.fragment.ofertaAcademica.OfertaAcademicaFragment
 import com.example.app_matricula_movil.ui.view.fragment.usuarios.UsuariosFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -34,11 +38,11 @@ class NavdrawActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
      * Usuario que se pretende setear con lo que se manda desde el Login. No tiene mucha utilidad por el momento, quizá
      * para la hora de crear aplicaciones del job para linkearlo a dicho usuario.
      */
-    private var userLogged: Usuario? = null
+    var userLogged: Usuario? = null
 
     private val usuarioRepository = UsuarioRepository()
 
-    private var token: String? = ""
+    var token: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -172,20 +176,53 @@ class NavdrawActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
                     )
                 )
             }
+            R.id.carreras -> {
+                supportActionBar?.title = "Carreras Registradas"
+                replaceFragments(
+                    CarrerasFragment.newInstance()
+                )
+            }
             R.id.cursos -> {
                 supportActionBar?.title = "Cursos Registrados"
                 replaceFragments(
-                    CursosFragment.newInstance(
-                        token!!,
-                        userLogged!!
+                    CursosFragment.newInstance()
+                )
+            }
+            R.id.alumnos -> {
+                supportActionBar?.title = "Alumnos Registrados"
+                replaceFragments(
+                    AlumnosFragment.newInstance(
+                        token!!, userLogged!!
                     )
                 )
             }
-            R.id.alumnos->{
-                supportActionBar?.title = "Alumnos Registrados"
-                replaceFragments(AlumnosFragment.newInstance(
-                    token!!, userLogged!!
+            R.id.oferta_academica -> {
+                supportActionBar?.title = "Oferta Académica"
+                replaceFragments(
+                    OfertaAcademicaFragment.newInstance(
+                        userLogged!!,
+                        token!!
                     )
+                )
+            }
+            R.id.matricula -> {
+                supportActionBar?.title = "Alumnos Registrados"
+                replaceFragments(
+                    AlumnosFragment.newInstance(
+                        token!!, userLogged!!, "GruposMatriculadosAlumno"
+                    )
+                )
+            }
+            R.id.grupos_asignados -> {
+                supportActionBar?.title = "Grupos Asignados"
+                replaceFragments(
+                    GruposFragment.newInstance(null, "GruposAsignados")
+                )
+            }
+            R.id.historial_matricula -> {
+                supportActionBar?.title = "Historial Académico"
+                replaceFragments(
+                    MatriculasFragment.newInstance()
                 )
             }
             R.id.logout -> {

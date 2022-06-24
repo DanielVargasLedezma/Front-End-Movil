@@ -1,16 +1,14 @@
 package com.example.app_matricula_movil.data.network.controller
 
 import com.example.app_matricula_movil.data.models.Usuario
-import com.example.app_matricula_movil.data.responses.GetUsuariosResponse
+import com.example.app_matricula_movil.data.responses.usuario.GetUsuariosResponse
 import com.example.app_matricula_movil.data.responses.UsuarioResponseLogin
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
-import retrofit2.http.Part
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 interface UsuarioController {
     /*

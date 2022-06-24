@@ -42,7 +42,7 @@
                 android:title="Grupos Asignados"/>
         <item
                 android:id="@+id/historial_matricula"
-                android:icon="@drawable/ic_enroll"
+                android:icon="@drawable/nota"
                 android:title="Historial Matrícula"/>
         <item
                 android:id="@+id/logout"

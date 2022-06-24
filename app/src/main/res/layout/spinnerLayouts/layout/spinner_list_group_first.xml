@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="@color/disabled_color"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="16sp"
+
+        tools:text="231321 - ING200 / Inglés I"
+
+        android:drawableStart="@drawable/grupo_matricula"
+        android:drawableEnd="@drawable/down_arrow"
+
+        android:paddingStart="5dp"
+        android:drawableTint="@color/black"
+/>

@@ -39,11 +39,9 @@ import kotlin.collections.ArrayList
 class CursosFragment : Fragment() {
     private val ARG_PARAM1 = "param1"
     private val ARG_PARAM2 = "param2"
-    private val ARG_PARAM3 = "param3"
 
-    private var token: String? = null
-    private var usuarioLoggeado: Usuario? = null
     private var carreraCompleja: CarreraCompleja? = null
+    private var viendoVista: String? = null
 
     private var _binding: FragmentCursosBinding? = null
     private val binding get() = _binding!!
@@ -57,9 +55,8 @@ class CursosFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            token = it.getString(ARG_PARAM1)
-            usuarioLoggeado = it.getSerializable(ARG_PARAM2) as Usuario?
-            carreraCompleja = it.getSerializable(ARG_PARAM3) as CarreraCompleja?
+            carreraCompleja = it.getSerializable(ARG_PARAM1) as CarreraCompleja?
+            viendoVista = it.getString(ARG_PARAM2)
         }
     }
 
@@ -71,7 +68,7 @@ class CursosFragment : Fragment() {
 
         if (carreraCompleja == null) {
             CoroutineScope(Dispatchers.IO).launch {
-                val response = cursoRepository.getCursos(token!!)
+                val response = cursoRepository.getCursos((activity as NavdrawActivity).token!!)
 
                 if (response != null) {
                     activity!!.runOnUiThread {
@@ -91,26 +88,20 @@ class CursosFragment : Fragment() {
 
             initRecyclerView()
             setSearchBar()
-            setRecyclerViewsItemsTouchHelper()
+
+            if (viendoVista == null) setRecyclerViewsItemsTouchHelper()
+            else binding.fab.visibility = View.GONE
         }
 
         binding.apply {
             fab.setOnClickListener {
                 (activity as NavdrawActivity).supportActionBar?.title = "Registrar Curso"
 
-                if (carreraCompleja == null) {
-                    swapFragments(
-                        CrearCursoFragment.newInstance(
-                            token!!, usuarioLoggeado!!
-                        )
+                swapFragments(
+                    CrearCursoFragment.newInstance(
+                        carreraCompleja
                     )
-                } else {
-                    swapFragments(
-                        CrearCursoFragment.newInstance(
-                            token!!, usuarioLoggeado!!, carreraCompleja
-                        )
-                    )
-                }
+                )
             }
         }
 
@@ -118,23 +109,28 @@ class CursosFragment : Fragment() {
     }
 
     private fun getCursos() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = cursoRepository.getCursos(token!!)
+        if (carreraCompleja == null) {
+            CoroutineScope(Dispatchers.IO).launch {
+                val response = cursoRepository.getCursos((activity as NavdrawActivity).token!!)
 
-            if (response != null) {
-                activity!!.runOnUiThread {
-                    cursos.clear()
-                    cursos.addAll(response.cursos)
+                if (response != null) {
+                    activity!!.runOnUiThread {
+                        cursos.clear()
+                        cursos.addAll(response.cursos)
 
-                    actualizarRecyclerView()
-                }
-            } else {
-                activity!!.runOnUiThread {
-                    cursos = arrayListOf()
+                        actualizarRecyclerView()
+                    }
+                } else {
+                    activity!!.runOnUiThread {
+                        cursos = arrayListOf()
 
-                    actualizarRecyclerView()
+                        actualizarRecyclerView()
+                    }
                 }
             }
+        } else {
+            cursos.clear()
+            cursos.addAll(carreraCompleja!!.cursos)
         }
     }
 
@@ -201,7 +197,7 @@ class CursosFragment : Fragment() {
 
                         swapFragments(
                             EditarCursoFragment.newInstance(
-                                cursos[position], token!!, usuarioLoggeado!!
+                                cursos[position], carreraCompleja
                             )
                         )
                     }
@@ -214,7 +210,10 @@ class CursosFragment : Fragment() {
                             setPositiveButton("Aceptar") { _: DialogInterface, _: Int ->
                                 CoroutineScope(Dispatchers.IO).launch {
                                     val response =
-                                        cursoRepository.eliminarCurso(cursos[position].codigo_curso, token!!)
+                                        cursoRepository.eliminarCurso(
+                                            cursos[position].codigo_curso,
+                                            (activity as NavdrawActivity).token!!
+                                        )
 
                                     if (response) {
                                         activity!!.runOnUiThread {
@@ -308,7 +307,7 @@ class CursosFragment : Fragment() {
 
         swapFragments(
             CursoFragment.newInstance(
-                curso
+                curso, carreraCompleja, viendoVista
             )
         )
     }
@@ -333,20 +332,16 @@ class CursosFragment : Fragment() {
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
+         * @param carreraElegida Parameter 1.
+         * @param tipoVista Parameter 2.
          * @return A new instance of fragment CursosFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: Usuario, param3: CarreraCompleja? = null) =
+        fun newInstance(carreraElegida: CarreraCompleja? = null, tipoVista: String? = null) =
             CursosFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putSerializable(ARG_PARAM2, param2)
-                    if (param3 != null) {
-                        putSerializable(ARG_PARAM3, param3)
-                    }
+                    if (carreraElegida != null) putSerializable(ARG_PARAM1, carreraElegida)
+                    if (tipoVista != null) putString(ARG_PARAM2, tipoVista)
                 }
             }
     }

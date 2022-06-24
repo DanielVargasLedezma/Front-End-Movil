@@ -8,7 +8,9 @@
         android:textAlignment="center"
         android:textSize="16sp"
 
-        android:drawableStart="@drawable/cycle"
+        android:drawableStart="@drawable/profesor"
+        android:drawableEnd="@drawable/down_arrow"
+
         android:paddingStart="5dp"
         android:drawableTint="@color/black"
 />

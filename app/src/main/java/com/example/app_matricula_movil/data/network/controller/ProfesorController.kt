@@ -1,9 +1,9 @@
 package com.example.app_matricula_movil.data.network.controller
 
-import com.example.app_matricula_movil.data.models.alumno.Alumno
 import com.example.app_matricula_movil.data.models.profesor.Profesor
 import com.example.app_matricula_movil.data.responses.GetProfesoresResponse
 import com.example.app_matricula_movil.data.responses.ProfesorResponseLogin
+import com.example.app_matricula_movil.data.responses.profesor.GetProfesoresResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET

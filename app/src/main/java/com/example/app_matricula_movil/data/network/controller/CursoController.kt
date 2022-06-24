@@ -1,7 +1,7 @@
 package com.example.app_matricula_movil.data.network.controller
 
 import com.example.app_matricula_movil.data.models.curso.Curso
-import com.example.app_matricula_movil.data.responses.GetCursosResponse
+import com.example.app_matricula_movil.data.responses.curso.GetCursosResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE

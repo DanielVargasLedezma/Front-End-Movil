@@ -12,6 +12,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
     >
+        <ImageButton
+                android:id="@+id/goBack"
+
+                android:contentDescription="Ir atrás"
+
+                android:src="@drawable/go_back"
+
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+
+                android:background="@android:color/transparent"
+
+                app:layout_constraintVertical_bias="0.05"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+        />
 
         <ImageView
                 android:id="@+id/imagenUsuario"
@@ -33,6 +50,8 @@
                 android:id="@+id/codigo_curso"
 
                 android:background="@drawable/design"
+
+                android:visibility="gone"
 
                 android:inputType="text"
                 android:hint="Código del Curso"
@@ -82,7 +101,7 @@
                 tools:ignore="RtlSymmetry"
 
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/codigo_curso"
+                app:layout_constraintTop_toBottomOf="@+id/imagenUsuario"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
         />
