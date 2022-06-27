@@ -16,7 +16,7 @@ class UsuarioAdapter(
     private val onClickListener: (Usuario) -> Unit
 ) : RecyclerView.Adapter<UsuarioViewHolder>(), Filterable {
 
-    private var itemsList: ArrayList<Usuario> = usuarios
+    var itemsList: ArrayList<Usuario> = usuarios
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsuarioViewHolder {
         return UsuarioViewHolder(
@@ -42,6 +42,8 @@ class UsuarioAdapter(
 
                     for (row in usuarios) {
                         if (row.cedula_usuario.lowercase(Locale.getDefault())
+                                .contains(charSearch.lowercase(Locale.getDefault())) ||
+                            row.nombre.lowercase(Locale.getDefault())
                                 .contains(charSearch.lowercase(Locale.getDefault()))
                         ) {
                             resultList.add(row)

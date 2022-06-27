@@ -16,7 +16,7 @@ class CarreraAdapter(
     private val carreras: ArrayList<CarreraCompleja>,
     private val onClickListener: (CarreraCompleja) -> Unit
 ) : RecyclerView.Adapter<CarreraViewHolder>(), Filterable {
-    private var itemsList: ArrayList<CarreraCompleja> = carreras
+    var itemsList: ArrayList<CarreraCompleja> = carreras
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarreraViewHolder {
         return CarreraViewHolder(

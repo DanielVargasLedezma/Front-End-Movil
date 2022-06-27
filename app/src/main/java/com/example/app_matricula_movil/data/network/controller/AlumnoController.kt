@@ -17,6 +17,9 @@ interface AlumnoController {
     @GET("alumnos")
     suspend fun getAlumnos(): Response<GetAlumnosResponse>
 
+    @GET("alumnos/grupo/{grupo}")
+    suspend fun getAlumnosMatriculados(@Path("grupo") numero_grupo: String): Response<GetAlumnosResponse>
+
     @POST("crear-alumno")
     suspend fun registrarAlumno(@Body alumno: Alumno): Response<Void>
 
@@ -24,6 +27,5 @@ interface AlumnoController {
     suspend fun editarAlumno(@Body alumno: Alumno, @Path("alumno") cedula_alumno: String): Response<Void>
 
     @DELETE("alumno/eliminar/{alumno}")
-    suspend fun eliminarAlumno(@Path("alumno")cedula_alumno: String): Response<Void>
-
+    suspend fun eliminarAlumno(@Path("alumno") cedula_alumno: String): Response<Void>
 }

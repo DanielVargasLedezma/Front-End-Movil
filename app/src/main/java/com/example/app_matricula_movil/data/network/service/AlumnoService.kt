@@ -51,7 +51,7 @@ class AlumnoService {
         }
     }
 
-    suspend fun getAlumnos(token: String): GetAlumnosResponse?{
+    suspend fun getAlumnos(token: String): GetAlumnosResponse? {
         return withContext(Dispatchers.IO) {
             val response = RetrofitHelper.getRetrofit(token)
                 .create(AlumnoController::class.java)
@@ -63,10 +63,20 @@ class AlumnoService {
                 null
             }
         }
-
     }
 
-    suspend fun registrarAlumno(alumno: Alumno, token: String): Boolean{
+    suspend fun getAlumnosMatriculados(numero_grupo: String, token: String): GetAlumnosResponse? {
+        return withContext(Dispatchers.IO) {
+            val response = RetrofitHelper.getRetrofit(token)
+                .create(AlumnoController::class.java)
+                .getAlumnosMatriculados(numero_grupo)
+
+            if (response.isSuccessful) response.body()
+            else null
+        }
+    }
+
+    suspend fun registrarAlumno(alumno: Alumno, token: String): Boolean {
         return withContext(Dispatchers.IO) {
             val response = RetrofitHelper.getRetrofit(token)
                 .create(AlumnoController::class.java)
@@ -79,10 +89,10 @@ class AlumnoService {
                 false
             }
         }
-
     }
-    suspend fun editarAlumno(alumno: Alumno, token: String): Boolean{
-        return withContext(Dispatchers.IO){
+
+    suspend fun editarAlumno(alumno: Alumno, token: String): Boolean {
+        return withContext(Dispatchers.IO) {
             val response = RetrofitHelper.getRetrofit(token)
                 .create(AlumnoController::class.java)
                 .editarAlumno(alumno, alumno.cedula_alumno)
@@ -93,11 +103,10 @@ class AlumnoService {
                 Log.v("MainActivity", "$response")
                 false
             }
-
         }
-
     }
-    suspend fun eliminarAlumno(cedula_alumno: String, token: String): Boolean{
+
+    suspend fun eliminarAlumno(cedula_alumno: String, token: String): Boolean {
         return withContext(Dispatchers.IO) {
             val response = RetrofitHelper.getRetrofit(token)
                 .create(AlumnoController::class.java)
@@ -111,5 +120,4 @@ class AlumnoService {
             }
         }
     }
-
 }

@@ -16,7 +16,7 @@ class CursoAdapter(
     private val onClickListener: (CursoComplejo) -> Unit
 ) : RecyclerView.Adapter<CursoViewHolder>(), Filterable {
 
-    private var itemsList: ArrayList<CursoComplejo> = cursos
+    var itemsList: ArrayList<CursoComplejo> = cursos
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CursoViewHolder {
         return CursoViewHolder(

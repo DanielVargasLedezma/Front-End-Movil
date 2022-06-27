@@ -47,7 +47,7 @@ class MatriculaFragment : Fragment() {
             ciclo.setText(getCicloText(matriculaAVer!!.grupo))
             horario.setText(getHorarioText(matriculaAVer!!.grupo))
             curso.setText(matriculaAVer!!.grupo.curso.nombre)
-            nota.setText(matriculaAVer!!.nota.toString())
+            nota.setText(getNota(matriculaAVer!!.nota))
 
             goBack.setOnClickListener {
                 if (alumno == null) (activity as NavdrawActivity).supportActionBar?.title =
@@ -64,6 +64,11 @@ class MatriculaFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun getNota(nota: Int): String {
+        return if (nota != 0) nota.toString()
+        else "*Sin nota"
     }
 
     private fun getHorarioText(grupoComplejo: GrupoComplejo): String {

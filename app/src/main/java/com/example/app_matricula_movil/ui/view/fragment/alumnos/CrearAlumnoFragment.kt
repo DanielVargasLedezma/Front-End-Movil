@@ -79,7 +79,7 @@ class CrearAlumnoFragment : Fragment() {
                     alumnoAInsertar.nombre = nombreAlumno.text.toString()
                     alumnoAInsertar.telefono = telAlumno.text.toString().toInt()
                     alumnoAInsertar.correo = emailAlumno.text.toString()
-                    alumnoAInsertar.fecha_nacimiento = fechaNacimiento.text.toString()
+                    alumnoAInsertar.fecha_nacimiento = getGoodDate()
 
                     CoroutineScope(Dispatchers.IO).launch {
                         val response = alumnoRepository.registrarAlumno(alumnoAInsertar, token!!)
@@ -111,6 +111,12 @@ class CrearAlumnoFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun getGoodDate(): String {
+        val values = binding.fechaNacimiento.text!!.toString().substring(0, 10).split("-")
+
+        return "${values[2]}-${values[1]}-${values[0]}"
     }
 
     /*

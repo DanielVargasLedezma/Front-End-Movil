@@ -11,6 +11,7 @@ import com.example.app_matricula_movil.data.models.curso.CursoComplejo
 import com.example.app_matricula_movil.data.models.grupo.GrupoComplejo
 import com.example.app_matricula_movil.databinding.FragmentGrupoBinding
 import com.example.app_matricula_movil.ui.view.NavdrawActivity
+import com.example.app_matricula_movil.ui.view.fragment.alumnos.AlumnosFragment
 
 /**
  * A simple [Fragment] subclass.
@@ -51,14 +52,28 @@ class GrupoFragment : Fragment() {
             if (viendoVista == "GruposAsignados") alumnos.visibility = View.VISIBLE
 
             alumnos.setOnClickListener {
+                (activity as NavdrawActivity).supportActionBar?.title =
+                    "Alumnos del Grupo"
+                (activity as NavdrawActivity).supportActionBar?.subtitle =
+                    "Grupo ${grupoAVer!!.numero_grupo}"
 
+                swapFragments(
+                    AlumnosFragment.newInstance(
+                        (activity as NavdrawActivity).token!!,
+                        (activity as NavdrawActivity).userLogged!!,
+                        viendoVista,
+                        grupoAVer
+                    )
+                )
             }
 
             goBack.setOnClickListener {
                 when (viendoVista) {
                     "OfertaAcademica" -> {
                         (activity as NavdrawActivity).supportActionBar?.title =
-                            "Grupos del curso ${cursoElegido!!.codigo_curso}"
+                            "Grupos Programados"
+                        (activity as NavdrawActivity).supportActionBar?.subtitle =
+                            "Curso ${cursoElegido!!.codigo_curso}"
                         swapFragments(
                             GruposFragment.newInstance(
                                 cursoElegido!!, viendoVista!!
@@ -76,7 +91,10 @@ class GrupoFragment : Fragment() {
                     }
                     "GruposMatriculadosAlumno" -> {
                         (activity as NavdrawActivity).supportActionBar?.title =
-                            "Grupos matriculados de ${alumnoElegido!!.cedula_alumno}"
+                            "Grupos Matriculados"
+
+                        (activity as NavdrawActivity).supportActionBar?.subtitle =
+                            "Alumno ${alumnoElegido!!.cedula_alumno}"
 
                         swapFragments(
                             GruposFragment.newInstance(null, viendoVista, alumnoElegido)

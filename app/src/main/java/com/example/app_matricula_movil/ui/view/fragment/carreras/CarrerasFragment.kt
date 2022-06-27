@@ -167,7 +167,7 @@ class CarrerasFragment : Fragment() {
 
                         swapFragments(
                             EditarCarreraFragment.newInstance(
-                                carreras[position]
+                                adapter.itemsList[position]
                             )
                         )
                     }
@@ -181,7 +181,7 @@ class CarrerasFragment : Fragment() {
                                 CoroutineScope(Dispatchers.IO).launch {
                                     val response =
                                         carreraRepository.eliminarCarrera(
-                                            carreras[position].codigo_carrera,
+                                            adapter.itemsList[position].codigo_carrera,
                                             (activity as NavdrawActivity).token!!
                                         )
 
@@ -234,7 +234,6 @@ class CarrerasFragment : Fragment() {
             ) {
 
                 RecyclerViewSwipeDecorator.Builder(
-                    this@CarrerasFragment.context,
                     c,
                     recyclerView,
                     viewHolder,

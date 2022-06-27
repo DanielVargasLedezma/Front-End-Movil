@@ -177,7 +177,7 @@ class UsuariosFragment : Fragment() {
 
                         swapFragments(
                             EditarUsuarioFragment.newInstance(
-                                usuarios[position], token!!, usuarioLoggeado!!
+                                adapter.itemsList[position], token!!, usuarioLoggeado!!
                             )
                         )
                     }
@@ -190,7 +190,10 @@ class UsuariosFragment : Fragment() {
                             setPositiveButton("Aceptar") { _: DialogInterface, _: Int ->
                                 CoroutineScope(Dispatchers.IO).launch {
                                     val response =
-                                        usuarioRepository.eliminarUsuario(usuarios[position].cedula_usuario, token!!)
+                                        usuarioRepository.eliminarUsuario(
+                                            adapter.itemsList[position].cedula_usuario,
+                                            token!!
+                                        )
 
                                     if (response) {
                                         activity!!.runOnUiThread {
@@ -242,7 +245,6 @@ class UsuariosFragment : Fragment() {
             ) {
 
                 RecyclerViewSwipeDecorator.Builder(
-                    this@UsuariosFragment.context,
                     c,
                     recyclerView,
                     viewHolder,

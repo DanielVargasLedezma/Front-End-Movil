@@ -19,10 +19,12 @@ import com.example.app_matricula_movil.data.models.Usuario
 import com.example.app_matricula_movil.data.models.alumno.Alumno
 import com.example.app_matricula_movil.data.models.alumno.AlumnoComplejo
 import com.example.app_matricula_movil.data.models.carrera.CarreraCompleja
+import com.example.app_matricula_movil.data.models.grupo.GrupoComplejo
 import com.example.app_matricula_movil.data.repository.AlumnoRepository
 import com.example.app_matricula_movil.databinding.FragmentAlumnosBinding
 import com.example.app_matricula_movil.ui.view.NavdrawActivity
 import com.example.app_matricula_movil.ui.view.fragment.cursos.CrearCursoFragment
+import com.example.app_matricula_movil.ui.view.fragment.matricula.EditarNotaFragment
 import com.example.app_matricula_movil.ui.view.recyclerView.alumnosRecyclerView.AlumnoAdapter
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import kotlinx.coroutines.CoroutineScope
@@ -40,10 +42,12 @@ class AlumnosFragment : Fragment() {
     private val ARG_PARAM1 = "param1"
     private val ARG_PARAM2 = "param2"
     private val ARG_PARAM3 = "param3"
+    private val ARG_PARAM4 = "param4"
 
     private var token: String? = null
     private var usuarioLoggeado: Usuario? = null
     private var tipoVista: String? = null
+    private var grupoComplejo: GrupoComplejo? = null
 
     private var _binding: FragmentAlumnosBinding? = null
     private val binding get() = _binding!!
@@ -60,6 +64,7 @@ class AlumnosFragment : Fragment() {
             token = it.getString(ARG_PARAM1)
             usuarioLoggeado = it.getSerializable(ARG_PARAM2) as Usuario?
             tipoVista = it.getString(ARG_PARAM3)
+            grupoComplejo = it.getSerializable(ARG_PARAM4) as GrupoComplejo?
         }
     }
 
@@ -69,22 +74,47 @@ class AlumnosFragment : Fragment() {
     ): View? {
         _binding = FragmentAlumnosBinding.inflate(inflater, container, false)
 
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = alumnoRepository.getAlumnos(token!!)
+        if (tipoVista == null) tipoVista = ""
 
-            if (response != null) {
-                activity!!.runOnUiThread {
-                    alumnos.addAll(response.alumnos)
+        when (tipoVista) {
+            "GruposAsignados" -> {
+                CoroutineScope(Dispatchers.IO).launch {
+                    val response = alumnoRepository.getAlumnosMatriculados(grupoComplejo!!.numero_grupo, token!!)
+
+                    if (response != null) {
+                        activity!!.runOnUiThread {
+                            alumnos.addAll(response.alumnos)
+                        }
+                    }
+
+                    activity!!.runOnUiThread {
+                        initRecyclerView()
+                        setSearchBar()
+                        setRecyclerViewsItemsTouchHelperMatricula()
+                        binding.fab.visibility = View.GONE
+                    }
+
                 }
             }
+            else -> {
+                CoroutineScope(Dispatchers.IO).launch {
+                    val response = alumnoRepository.getAlumnos(token!!)
 
-            activity!!.runOnUiThread {
-                initRecyclerView()
-                setSearchBar()
-                if (tipoVista == null) setRecyclerViewsItemsTouchHelper()
-                else binding.fab.visibility = View.GONE
+                    if (response != null) {
+                        activity!!.runOnUiThread {
+                            alumnos.addAll(response.alumnos)
+                        }
+                    }
+
+                    activity!!.runOnUiThread {
+                        initRecyclerView()
+                        setSearchBar()
+                        if (tipoVista == null || tipoVista == "") setRecyclerViewsItemsTouchHelper()
+                        else binding.fab.visibility = View.GONE
+                    }
+
+                }
             }
-
         }
 
         binding.apply {
@@ -102,21 +132,45 @@ class AlumnosFragment : Fragment() {
     }
 
     private fun getAlumnos() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = alumnoRepository.getAlumnos(token!!)
+        when (tipoVista) {
+            "GruposAsignados" -> {
+                CoroutineScope(Dispatchers.IO).launch {
+                    val response = alumnoRepository.getAlumnosMatriculados(grupoComplejo!!.numero_grupo, token!!)
 
-            if (response != null) {
-                activity!!.runOnUiThread {
-                    alumnos.clear()
-                    alumnos.addAll(response.alumnos)
+                    if (response != null) {
+                        activity!!.runOnUiThread {
+                            alumnos.clear()
+                            alumnos.addAll(response.alumnos)
 
-                    actualizarRecyclerView()
+                            actualizarRecyclerView()
+                        }
+                    } else {
+                        activity!!.runOnUiThread {
+                            alumnos = arrayListOf()
+
+                            actualizarRecyclerView()
+                        }
+                    }
                 }
-            } else {
-                activity!!.runOnUiThread {
-                    alumnos = arrayListOf()
+            }
+            else -> {
+                CoroutineScope(Dispatchers.IO).launch {
+                    val response = alumnoRepository.getAlumnos(token!!)
 
-                    actualizarRecyclerView()
+                    if (response != null) {
+                        activity!!.runOnUiThread {
+                            alumnos.clear()
+                            alumnos.addAll(response.alumnos)
+
+                            actualizarRecyclerView()
+                        }
+                    } else {
+                        activity!!.runOnUiThread {
+                            alumnos = arrayListOf()
+
+                            actualizarRecyclerView()
+                        }
+                    }
                 }
             }
         }
@@ -154,6 +208,87 @@ class AlumnosFragment : Fragment() {
         }
     }
 
+    private fun setRecyclerViewsItemsTouchHelperMatricula() {
+        val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
+            ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.START or ItemTouchHelper.END,
+            ItemTouchHelper.RIGHT
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                val fromPosition: Int = viewHolder.adapterPosition
+                val toPosition: Int = target.adapterPosition
+
+                Collections.swap(alumnos, fromPosition, toPosition)
+
+                binding.apply {
+                    recyclerView.adapter?.notifyItemMoved(fromPosition, toPosition)
+                }
+
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+
+                if (direction == ItemTouchHelper.RIGHT) {
+                    binding.apply {
+                        (activity as NavdrawActivity).supportActionBar?.title = "Editar/Registrar Nota"
+                        (activity as NavdrawActivity).supportActionBar?.subtitle =
+                            "Alumno ${alumnos[position].cedula_alumno}"
+
+                        swapFragments(
+                            EditarNotaFragment.newInstance(
+                                adapter.itemsList[position], grupoComplejo!!, tipoVista
+                            )
+                        )
+                    }
+                }
+            }
+
+            override fun onChildDraw(
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+
+                RecyclerViewSwipeDecorator.Builder(
+                    this@AlumnosFragment.context,
+                    c,
+                    recyclerView,
+                    viewHolder,
+                    dX,
+                    dY,
+                    actionState,
+                    isCurrentlyActive
+                )
+                    .addSwipeRightBackgroundColor(
+                        ContextCompat.getColor(
+                            this@AlumnosFragment.context!!,
+                            R.color.disabled_color
+                        )
+                    )
+                    .addSwipeRightActionIcon(R.drawable.nota)
+                    .create()
+                    .decorate()
+
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+
+        binding.apply {
+            itemTouchHelper.attachToRecyclerView(recyclerView)
+        }
+    }
+
     private fun setRecyclerViewsItemsTouchHelper() {
         val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.START or ItemTouchHelper.END,
@@ -185,7 +320,7 @@ class AlumnosFragment : Fragment() {
 
                         swapFragments(
                             EditarAlumnoFragment.newInstance(
-                                alumnos[position], token!!, usuarioLoggeado!!
+                                adapter.itemsList[position], token!!, usuarioLoggeado!!
                             )
                         )
                     }
@@ -198,7 +333,10 @@ class AlumnosFragment : Fragment() {
                             setPositiveButton("Aceptar") { _: DialogInterface, _: Int ->
                                 CoroutineScope(Dispatchers.IO).launch {
                                     val response =
-                                        alumnoRepository.eliminarAlumno(alumnos[position].cedula_alumno, token!!)
+                                        alumnoRepository.eliminarAlumno(
+                                            adapter.itemsList[position].cedula_alumno,
+                                            token!!
+                                        )
 
                                     if (response) {
                                         activity!!.runOnUiThread {
@@ -250,7 +388,6 @@ class AlumnosFragment : Fragment() {
             ) {
 
                 RecyclerViewSwipeDecorator.Builder(
-                    this@AlumnosFragment.context,
                     c,
                     recyclerView,
                     viewHolder,
@@ -288,11 +425,20 @@ class AlumnosFragment : Fragment() {
     }
 
     private fun onItemSelected(alumno: AlumnoComplejo) {
-        (activity as NavdrawActivity).supportActionBar?.title = "Visualizar Alumno"
+        when (tipoVista) {
+            "GruposAsignados" -> {
+                (activity as NavdrawActivity).supportActionBar?.title = "Visualizar Alumno"
+                (activity as NavdrawActivity).supportActionBar?.subtitle =
+                    "Alumno del Grupo ${grupoComplejo!!.numero_grupo}"
+            }
+            else -> {
+                (activity as NavdrawActivity).supportActionBar?.title = "Visualizar Alumno"
+            }
+        }
 
         swapFragments(
             AlumnoFragment.newInstance(
-                alumno, tipoVista
+                alumno, tipoVista, grupoComplejo
             )
         )
     }
@@ -320,15 +466,22 @@ class AlumnosFragment : Fragment() {
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
          * @param tipoVista Para qué se está usando el fragment.
+         * @param grupoComplejo Grupo del que se cargarán los alumnos.
          * @return A new instance of fragment AlumnosFragment.
          */
         @JvmStatic
-        fun newInstance(param1: String, param2: Usuario, tipoVista: String? = null) =
+        fun newInstance(
+            param1: String,
+            param2: Usuario,
+            tipoVista: String? = null,
+            grupoComplejo: GrupoComplejo? = null
+        ) =
             AlumnosFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putSerializable(ARG_PARAM2, param2)
                     if (tipoVista != null) putString(ARG_PARAM3, tipoVista)
+                    if (grupoComplejo != null) putSerializable(ARG_PARAM4, grupoComplejo)
                 }
             }
     }

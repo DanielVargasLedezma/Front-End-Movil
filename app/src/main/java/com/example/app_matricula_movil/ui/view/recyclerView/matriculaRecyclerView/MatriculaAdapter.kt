@@ -14,7 +14,7 @@ import kotlin.collections.ArrayList
 class MatriculaAdapter(
     private val matriculas: ArrayList<MatriculaCompleja>, private val onClickListener: (MatriculaCompleja) -> Unit
 ) : RecyclerView.Adapter<MatriculaViewHolder>(), Filterable {
-    private var itemsList: ArrayList<MatriculaCompleja> = matriculas
+    var itemsList: ArrayList<MatriculaCompleja> = matriculas
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatriculaViewHolder {
         return MatriculaViewHolder(

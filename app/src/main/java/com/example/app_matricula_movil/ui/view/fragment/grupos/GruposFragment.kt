@@ -303,7 +303,7 @@ class GruposFragment : Fragment() {
                                     val response =
                                         matriculaRepository.desmatricularGrupo(
                                             alumnoElegido!!.cedula_alumno,
-                                            grupos[position].numero_grupo,
+                                            adapter.itemsList[position].numero_grupo,
                                             (activity as NavdrawActivity).token!!
                                         )
 
@@ -417,7 +417,7 @@ class GruposFragment : Fragment() {
 
                         swapFragments(
                             EditarGrupoFragment.newInstance(
-                                grupos[position], cursoElegido!!, viendoVista!!
+                                adapter.itemsList[position], cursoElegido!!, viendoVista!!
                             )
                         )
                     }
@@ -431,7 +431,7 @@ class GruposFragment : Fragment() {
                                 CoroutineScope(Dispatchers.IO).launch {
                                     val response =
                                         grupoRepository.eliminarGrupo(
-                                            grupos[position].numero_grupo,
+                                            adapter.itemsList[position].numero_grupo,
                                             (activity as NavdrawActivity).token!!
                                         )
 
@@ -484,7 +484,6 @@ class GruposFragment : Fragment() {
             ) {
 
                 RecyclerViewSwipeDecorator.Builder(
-                    this@GruposFragment.context,
                     c,
                     recyclerView,
                     viewHolder,

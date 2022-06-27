@@ -13,11 +13,16 @@ class MatriculaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         binding.apply {
             codigoGrupo.text = matricula.grupo.numero_grupo
             nombreCurso.text = "${matricula.grupo.curso.codigo_curso} ${matricula.grupo.curso.nombre}"
-            nota.text = matricula.nota.toString()
+            nota.text = getNota(matricula.nota)
         }
 
         itemView.setOnClickListener {
             onClickListener(matricula)
         }
+    }
+
+    private fun getNota(nota: Int): String {
+        return if (nota != 0) nota.toString()
+        else "*Sin nota"
     }
 }

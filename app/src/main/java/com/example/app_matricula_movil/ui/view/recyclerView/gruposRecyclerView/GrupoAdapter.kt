@@ -15,7 +15,7 @@ class GrupoAdapter(private val grupos: ArrayList<GrupoComplejo>, private val onC
     RecyclerView.Adapter<GrupoViewHolder>(),
     Filterable {
 
-    private var itemsList: ArrayList<GrupoComplejo> = grupos
+    var itemsList: ArrayList<GrupoComplejo> = grupos
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GrupoViewHolder {
         return GrupoViewHolder(

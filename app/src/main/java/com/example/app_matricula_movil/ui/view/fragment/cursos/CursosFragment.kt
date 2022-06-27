@@ -197,7 +197,7 @@ class CursosFragment : Fragment() {
 
                         swapFragments(
                             EditarCursoFragment.newInstance(
-                                cursos[position], carreraCompleja
+                                adapter.itemsList[position], carreraCompleja
                             )
                         )
                     }
@@ -211,7 +211,7 @@ class CursosFragment : Fragment() {
                                 CoroutineScope(Dispatchers.IO).launch {
                                     val response =
                                         cursoRepository.eliminarCurso(
-                                            cursos[position].codigo_curso,
+                                            adapter.itemsList[position].codigo_curso,
                                             (activity as NavdrawActivity).token!!
                                         )
 
@@ -265,7 +265,6 @@ class CursosFragment : Fragment() {
             ) {
 
                 RecyclerViewSwipeDecorator.Builder(
-                    this@CursosFragment.context,
                     c,
                     recyclerView,
                     viewHolder,

@@ -17,7 +17,7 @@ class AlumnoAdapter (
     private val onClickListener: (AlumnoComplejo) -> Unit
 ) : RecyclerView.Adapter<AlumnoViewHolder>(), Filterable{
 
-    private var itemsList: ArrayList<AlumnoComplejo> = alumnos
+    var itemsList: ArrayList<AlumnoComplejo> = alumnos
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlumnoViewHolder {
         return AlumnoViewHolder(
