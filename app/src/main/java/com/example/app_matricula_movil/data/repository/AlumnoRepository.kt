@@ -3,7 +3,7 @@ package com.example.app_matricula_movil.data.repository
 import com.example.app_matricula_movil.data.models.alumno.Alumno
 import com.example.app_matricula_movil.data.network.service.AlumnoService
 import com.example.app_matricula_movil.data.responses.AlumnoResponseLogin
-import com.example.app_matricula_movil.data.responses.GetAlumnosResponse
+import com.example.app_matricula_movil.data.responses.alumno.GetAlumnosResponse
 
 class AlumnoRepository {
     private val alumnoService = AlumnoService()

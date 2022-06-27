@@ -3,16 +3,11 @@ package com.example.app_matricula_movil.data.network.service
 import android.util.Log
 import com.example.app_matricula_movil.core.RetrofitHelper
 import com.example.app_matricula_movil.data.models.alumno.Alumno
-import com.example.app_matricula_movil.data.models.profesor.Profesor
 import com.example.app_matricula_movil.data.network.controller.AlumnoController
-import com.example.app_matricula_movil.data.network.controller.ProfesorController
-import com.example.app_matricula_movil.data.network.controller.UsuarioController
 import com.example.app_matricula_movil.data.responses.AlumnoResponseLogin
-import com.example.app_matricula_movil.data.responses.GetAlumnosResponse
+import com.example.app_matricula_movil.data.responses.alumno.GetAlumnosResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.create
-import java.util.StringJoiner
 
 class AlumnoService {
     /*

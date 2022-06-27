@@ -1,7 +1,7 @@
 package com.example.app_matricula_movil.domain.useCase
 
 import com.example.app_matricula_movil.data.repository.AlumnoRepository
-import com.example.app_matricula_movil.data.responses.GetAlumnosResponse
+import com.example.app_matricula_movil.data.responses.alumno.GetAlumnosResponse
 
 
 class GetAlumnos {
