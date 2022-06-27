@@ -2,7 +2,9 @@ package com.example.app_matricula_movil.data.network.service
 
 import android.util.Log
 import com.example.app_matricula_movil.core.RetrofitHelper
+import com.example.app_matricula_movil.data.models.alumno.Alumno
 import com.example.app_matricula_movil.data.models.profesor.Profesor
+import com.example.app_matricula_movil.data.network.controller.AlumnoController
 import com.example.app_matricula_movil.data.network.controller.ProfesorController
 import com.example.app_matricula_movil.data.responses.ProfesorResponseLogin
 import com.example.app_matricula_movil.data.responses.profesor.GetProfesoresResponse
@@ -54,6 +56,52 @@ class ProfesorService {
 
             if (response.isSuccessful) response.body()
             else null
+        }
+    }
+
+    suspend fun registrarProfesor(profesor: Profesor, token: String): Boolean{
+        return withContext(Dispatchers.IO) {
+            val response = RetrofitHelper.getRetrofit(token)
+                .create(ProfesorController::class.java)
+                .registrarProfesor(profesor)
+
+            if (response.isSuccessful) {
+                true
+            } else {
+                Log.v("MainActivity", "$response")
+                false
+            }
+        }
+
+    }
+    suspend fun editarProfesor(profesor: Profesor, token: String): Boolean{
+        return withContext(Dispatchers.IO){
+            val response = RetrofitHelper.getRetrofit(token)
+                .create(ProfesorController::class.java)
+                .editarProfesor(profesor, profesor.cedula_profesor)
+
+            if (response.isSuccessful) {
+                true
+            } else {
+                Log.v("MainActivity", "$response")
+                false
+            }
+
+        }
+
+    }
+    suspend fun eliminarProfesor(cedula_profesor: String, token: String): Boolean{
+        return withContext(Dispatchers.IO) {
+            val response = RetrofitHelper.getRetrofit(token)
+                .create(ProfesorController::class.java)
+                .eliminarProfesor(cedula_profesor)
+
+            if (response.isSuccessful) {
+                true
+            } else {
+                Log.v("MainActivity", "$response")
+                false
+            }
         }
     }
 }

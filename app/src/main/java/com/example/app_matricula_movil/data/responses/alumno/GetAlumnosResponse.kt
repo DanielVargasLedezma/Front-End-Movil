@@ -1,4 +1,4 @@
-package com.example.app_matricula_movil.data.responses
+package com.example.app_matricula_movil.data.responses.alumno
 
 
 import com.example.app_matricula_movil.data.models.alumno.AlumnoComplejo

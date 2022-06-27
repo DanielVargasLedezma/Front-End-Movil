@@ -15,10 +15,12 @@ import com.example.app_matricula_movil.data.repository.UsuarioRepository
 import com.example.app_matricula_movil.databinding.ActivityNavdrawBinding
 import com.example.app_matricula_movil.ui.view.fragment.carreras.CarrerasFragment
 import com.example.app_matricula_movil.ui.view.fragment.alumnos.AlumnosFragment
+import com.example.app_matricula_movil.ui.view.fragment.ciclos.CiclosFragment
 import com.example.app_matricula_movil.ui.view.fragment.cursos.CursosFragment
 import com.example.app_matricula_movil.ui.view.fragment.grupos.GruposFragment
 import com.example.app_matricula_movil.ui.view.fragment.matricula.MatriculasFragment
 import com.example.app_matricula_movil.ui.view.fragment.ofertaAcademica.OfertaAcademicaFragment
+import com.example.app_matricula_movil.ui.view.fragment.profesores.ProfesoresFragment
 import com.example.app_matricula_movil.ui.view.fragment.usuarios.UsuariosFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -188,12 +190,24 @@ class NavdrawActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
                     CursosFragment.newInstance()
                 )
             }
+            R.id.profesores ->{
+                supportActionBar?.title = "Profesores Registrados"
+                replaceFragments(
+                    ProfesoresFragment.newInstance()
+                )
+            }
             R.id.alumnos -> {
                 supportActionBar?.title = "Alumnos Registrados"
                 replaceFragments(
                     AlumnosFragment.newInstance(
                         token!!, userLogged!!
                     )
+                )
+            }
+            R.id.ciclos -> {
+                supportActionBar?.title = "Ciclos Registrados"
+                replaceFragments(
+                    CiclosFragment.newInstance( )
                 )
             }
             R.id.oferta_academica -> {

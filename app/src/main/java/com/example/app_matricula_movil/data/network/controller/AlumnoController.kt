@@ -2,7 +2,7 @@ package com.example.app_matricula_movil.data.network.controller
 
 import com.example.app_matricula_movil.data.models.alumno.Alumno
 import com.example.app_matricula_movil.data.responses.AlumnoResponseLogin
-import com.example.app_matricula_movil.data.responses.GetAlumnosResponse
+import com.example.app_matricula_movil.data.responses.alumno.GetAlumnosResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
