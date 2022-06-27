@@ -25,12 +25,13 @@ import kotlinx.coroutines.launch
  */
 class EdiarCicloFragment : Fragment() {
     private val ARG_PARAM1 = "param1"
+
     private var _binding: FragmentEdiarCicloBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var adapterNumeroCiclo: ArrayAdapter<String>
 
-    private val cicloAEditar = Ciclo()
+    private var cicloAEditar: Ciclo? = null
     private val ciclo = Ciclo()
 
     private val cicloRepository = CicloRepository()
@@ -38,14 +39,14 @@ class EdiarCicloFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-         }
+            cicloAEditar = it.getSerializable(ARG_PARAM1) as Ciclo?
+        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         _binding = FragmentEdiarCicloBinding.inflate(inflater, container, false)
 
         setAdapterNumeroCiclo()
@@ -56,9 +57,15 @@ class EdiarCicloFragment : Fragment() {
                 iniciarCiclos()
             }
 
+            descartar.setOnClickListener {
+                fillInputsByDefault()
+            }
+
             insertar.setOnClickListener {
-                if (annoQueseLleva.text.isNotEmpty() && fechaInicio.text.isNotEmpty() && fechaFinalizacion.text.isNotEmpty() && cicloAEditar.numero_ciclo != 0) {
-                    ciclo.id_ciclo = cicloAEditar.id_ciclo
+                if (annoQueseLleva.text.isNotEmpty() && fechaInicio.text.isNotEmpty()
+                    && fechaFinalizacion.text.isNotEmpty() && ciclo.numero_ciclo != 0
+                ) {
+                    ciclo.id_ciclo = cicloAEditar!!.id_ciclo
                     ciclo.year = annoQueseLleva.text.toString().toInt()
                     ciclo.fecha_inicio = getGoodDate(fechaInicio.text.toString())
                     ciclo.fecha_finalizacion = getGoodDate(fechaFinalizacion.text.toString())
@@ -66,7 +73,8 @@ class EdiarCicloFragment : Fragment() {
 
                     CoroutineScope(Dispatchers.IO).launch {
                         val response = cicloRepository.editarCiclo(
-                            ciclo, (activity as NavdrawActivity).token!!)
+                            ciclo, (activity as NavdrawActivity).token!!
+                        )
 
                         if (response) {
                             activity!!.runOnUiThread {
@@ -76,7 +84,7 @@ class EdiarCicloFragment : Fragment() {
                             activity!!.runOnUiThread {
                                 Toast.makeText(
                                     this@EdiarCicloFragment.context,
-                                    "Error al insertar",
+                                    "Error al editar",
                                     Toast.LENGTH_SHORT
                                 )
                                     .show()
@@ -96,7 +104,14 @@ class EdiarCicloFragment : Fragment() {
         return binding.root
 
     }
+
     private fun getGoodDate(fecha: String): String {
+        val values = fecha.substring(0, 10).split("-")
+
+        return "${values[2]}-${values[1]}-${values[0]}"
+    }
+
+    private fun setGoodDate(fecha: String): String {
         val values = fecha.substring(0, 10).split("-")
 
         return "${values[2]}-${values[1]}-${values[0]}"
@@ -104,10 +119,11 @@ class EdiarCicloFragment : Fragment() {
 
     private fun getCicloActivoInt(): Int {
         binding.apply {
-            if (estadoUsuario.isChecked) return 1
-            else return 0
+            return if (estadoUsuario.isChecked) 1
+            else 0
         }
     }
+
     private fun iniciarCiclos() {
         (activity as NavdrawActivity).supportActionBar?.title = "Editar Ciclo"
 
@@ -115,10 +131,11 @@ class EdiarCicloFragment : Fragment() {
             CiclosFragment.newInstance()
         )
     }
+
     private fun setAdapterNumeroCiclo() {
         binding.apply {
             adapterNumeroCiclo =
-                ArrayAdapter<String>(this@EdiarCicloFragment.context!!, R.layout.spinner_list_year_first)
+                ArrayAdapter<String>(this@EdiarCicloFragment.context!!, R.layout.spinner_list_cycle_first)
 
             adapterNumeroCiclo.setDropDownViewResource(R.layout.spinner_list_item)
 
@@ -144,15 +161,14 @@ class EdiarCicloFragment : Fragment() {
 
     private fun fillInputsByDefault() {
         binding.apply {
-            //numCiclo.set(cicloAEditar!!.numero_ciclo)
             annoQueseLleva.setText(cicloAEditar!!.year.toString())
-            fechaInicio.setText(cicloAEditar!!.fecha_inicio)
-            fechaFinalizacion.setText(cicloAEditar!!.fecha_finalizacion)
+            fechaInicio.setText(setGoodDate(cicloAEditar!!.fecha_inicio))
+            fechaFinalizacion.setText(setGoodDate(cicloAEditar!!.fecha_finalizacion))
 
             numCiclo.setSelection(cicloAEditar!!.numero_ciclo)
-
         }
     }
+
     private fun swapFragments(fragment: Fragment) {
         val fragmentTransaction = parentFragmentManager.beginTransaction()
 

@@ -66,6 +66,10 @@ class EditarUsuarioFragment : Fragment() {
                 revertirCambios()
             }
 
+            goBack.setOnClickListener {
+                iniciarUsuarios()
+            }
+
             insertarUsuario.setOnClickListener {
                 if (
                     cedulaUsuario.text.isNotEmpty() && correoUsuario.text.isNotEmpty() && nombreUsuario.text.isNotEmpty()

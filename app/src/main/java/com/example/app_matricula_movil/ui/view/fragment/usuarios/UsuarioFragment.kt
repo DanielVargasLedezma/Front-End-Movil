@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.example.app_matricula_movil.R
 import com.example.app_matricula_movil.data.models.Usuario
 import com.example.app_matricula_movil.databinding.FragmentUsuarioBinding
+import com.example.app_matricula_movil.ui.view.NavdrawActivity
 
 /**
  * A simple [Fragment] subclass.
@@ -42,9 +43,25 @@ class UsuarioFragment : Fragment() {
 
             estadoUsuario.isChecked = usuarioAVer!!.estado == 1
             tipoUsuario.isChecked = usuarioAVer!!.tipo_usuario == 1
+
+            goBack.setOnClickListener {
+                iniciarUsuarios()
+            }
         }
 
         return binding.root
+    }
+
+    private fun iniciarUsuarios() {
+        (activity as NavdrawActivity).supportActionBar?.title = "Usuarios Registrados"
+
+        val fragmentTransaction = parentFragmentManager.beginTransaction()
+        fragmentTransaction.replace(
+            R.id.contentMain, UsuariosFragment.newInstance(
+                (activity as NavdrawActivity).token!!, (activity as NavdrawActivity).userLogged!!
+            )
+        )
+        fragmentTransaction.commit()
     }
 
     override fun onDestroyView() {

@@ -58,7 +58,10 @@ class CursoFragment : Fragment() {
             if (viendoVista != null && viendoVista!! == "OfertaAcademica") grupos.visibility = View.VISIBLE
 
             grupos.setOnClickListener {
-                (activity as NavdrawActivity).supportActionBar?.title = "Grupos del curso ${cursoAVer!!.codigo_curso}"
+                (activity as NavdrawActivity).supportActionBar?.title = "Grupos Programados"
+
+                (activity as NavdrawActivity).supportActionBar?.subtitle =
+                    "Curso ${cursoAVer!!.codigo_curso}"
 
                 swapFragments(
                     GruposFragment.newInstance(
@@ -78,8 +81,13 @@ class CursoFragment : Fragment() {
     private fun iniciarCursos() {
         if (carreraCompleja == null) {
             (activity as NavdrawActivity).supportActionBar?.title = "Cursos Registrados"
+
+            (activity as NavdrawActivity).supportActionBar?.subtitle = ""
         } else {
-            (activity as NavdrawActivity).supportActionBar?.title = "Cursos de ${carreraCompleja!!.codigo_carrera}"
+            (activity as NavdrawActivity).supportActionBar?.title = "Cursos de la Carrera"
+
+            (activity as NavdrawActivity).supportActionBar?.subtitle =
+                "Carrera ${carreraCompleja!!.codigo_carrera}"
         }
 
         swapFragments(

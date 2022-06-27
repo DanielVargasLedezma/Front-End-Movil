@@ -83,7 +83,8 @@ class CursosFragment : Fragment() {
                 }
             }
         } else {
-            (activity as NavdrawActivity).supportActionBar?.title = "Cursos de ${carreraCompleja!!.codigo_carrera}"
+            (activity as NavdrawActivity).supportActionBar?.title = "Cursos de la Carrera"
+            (activity as NavdrawActivity).supportActionBar?.subtitle = "Carrera ${carreraCompleja!!.codigo_carrera}"
             cursos.addAll(carreraCompleja!!.cursos)
 
             initRecyclerView()
@@ -96,6 +97,8 @@ class CursosFragment : Fragment() {
         binding.apply {
             fab.setOnClickListener {
                 (activity as NavdrawActivity).supportActionBar?.title = "Registrar Curso"
+
+                if (carreraCompleja == null) (activity as NavdrawActivity).supportActionBar?.subtitle = ""
 
                 swapFragments(
                     CrearCursoFragment.newInstance(
@@ -303,6 +306,7 @@ class CursosFragment : Fragment() {
 
     private fun onItemSelected(curso: CursoComplejo) {
         (activity as NavdrawActivity).supportActionBar?.title = "Visualizar Curso"
+        if (carreraCompleja == null) (activity as NavdrawActivity).supportActionBar?.subtitle = ""
 
         swapFragments(
             CursoFragment.newInstance(

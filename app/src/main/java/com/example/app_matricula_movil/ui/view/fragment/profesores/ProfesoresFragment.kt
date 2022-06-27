@@ -41,9 +41,7 @@ class ProfesoresFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
+        arguments?.let { }
     }
 
     override fun onCreateView(
@@ -80,6 +78,7 @@ class ProfesoresFragment : Fragment() {
 
         return binding.root
     }
+
     private fun getProfesores() {
         CoroutineScope(Dispatchers.IO).launch {
             val response =
@@ -97,10 +96,11 @@ class ProfesoresFragment : Fragment() {
             }
         }
     }
+
     private fun initRecyclerView() {
         binding.apply {
             recyclerView.layoutManager = LinearLayoutManager(this@ProfesoresFragment.context)
-            adapter = ProfesorAdapter (profesores) { onItemSelected(it) }
+            adapter = ProfesorAdapter(profesores) { onItemSelected(it) }
             recyclerView.adapter = adapter
             recyclerView.setHasFixedSize(true)
         }
@@ -120,6 +120,7 @@ class ProfesoresFragment : Fragment() {
             })
         }
     }
+
     private fun actualizarRecyclerView() {
         binding.apply {
             adapter = ProfesorAdapter(profesores) { onItemSelected(it) }
@@ -127,6 +128,7 @@ class ProfesoresFragment : Fragment() {
             recyclerView.adapter = adapter
         }
     }
+
     private fun setRecyclerViewsItemsTouchHelper() {
         val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.START or ItemTouchHelper.END,
@@ -158,7 +160,7 @@ class ProfesoresFragment : Fragment() {
 
                         swapFragments(
                             EditarProfesorFragment.newInstance(
-                                profesores [position]
+                                adapter.itemsList[position]
                             )
                         )
                     }
@@ -172,7 +174,7 @@ class ProfesoresFragment : Fragment() {
                                 CoroutineScope(Dispatchers.IO).launch {
                                     val response =
                                         profesorRepository.eliminarProfesor(
-                                            profesores[position].cedula_profesor,
+                                            adapter.itemsList[position].cedula_profesor,
                                             (activity as NavdrawActivity).token!!
                                         )
 
@@ -271,6 +273,7 @@ class ProfesoresFragment : Fragment() {
             )
         )
     }
+
     private fun swapFragments(fragment: Fragment) {
         val fragmentTransaction = parentFragmentManager.beginTransaction()
 
@@ -280,20 +283,19 @@ class ProfesoresFragment : Fragment() {
 
         fragmentTransaction.commit()
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
     companion object {
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
          * @return A new instance of fragment ProfesoresFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance() =
             ProfesoresFragment().apply {

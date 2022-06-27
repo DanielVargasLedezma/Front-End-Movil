@@ -17,7 +17,7 @@ class ProfesorAdapter (
     private val onClickListener: (Profesor) -> Unit
 ) : RecyclerView.Adapter<ProfesorViewHolder>(), Filterable {
 
-    private var itemsList: ArrayList<Profesor> = profesores
+    var itemsList: ArrayList<Profesor> = profesores
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfesorViewHolder {
         return ProfesorViewHolder(

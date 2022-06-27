@@ -57,6 +57,10 @@ class CrearUsuarioFragment : Fragment() {
                 tipoUsuarioAdmin.isChecked = !tipoUsuarioMatriculador.isChecked
             }
 
+            goBack.setOnClickListener {
+                iniciarUsuarios()
+            }
+
             insertarUsuario.setOnClickListener {
                 if (
                     cedulaUsuario.text.isNotEmpty() && correoUsuario.text.isNotEmpty() && nombreUsuario.text.isNotEmpty()

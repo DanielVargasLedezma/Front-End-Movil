@@ -132,9 +132,10 @@ class EditarNotaFragment : Fragment() {
 
     private fun iniciarAlumnos() {
         (activity as NavdrawActivity).supportActionBar?.title =
-            "Alumnos Registrados"
+            "Alumnos del Grupo"
 
-        (activity as NavdrawActivity).supportActionBar?.subtitle = ""
+        (activity as NavdrawActivity).supportActionBar?.subtitle =
+            "Grupo ${grupoMatriculado!!.numero_grupo}"
 
         val fragmentTransaction = parentFragmentManager.beginTransaction()
 

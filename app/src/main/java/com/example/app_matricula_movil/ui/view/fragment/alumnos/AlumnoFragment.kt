@@ -70,7 +70,7 @@ class AlumnoFragment : Fragment() {
                 (activity as NavdrawActivity).supportActionBar?.title =
                     "Grupos Matriculados"
 
-                (activity as NavdrawActivity).supportActionBar?.subtitle = "Estudiante ${alumnoAVer!!.cedula_alumno}"
+                (activity as NavdrawActivity).supportActionBar?.subtitle = "Alumno ${alumnoAVer!!.cedula_alumno}"
 
                 if (tipo_usuario == 1) tipoVista = "GruposMatriculadosAlumno"
 
@@ -83,7 +83,7 @@ class AlumnoFragment : Fragment() {
                 (activity as NavdrawActivity).supportActionBar?.title =
                     "Historial Académico"
 
-                (activity as NavdrawActivity).supportActionBar?.subtitle = "Estudiante ${alumnoAVer!!.cedula_alumno}"
+                (activity as NavdrawActivity).supportActionBar?.subtitle = "Alumno ${alumnoAVer!!.cedula_alumno}"
 
                 swapFragments(
                     MatriculasFragment.newInstance(alumnoAVer!!)
@@ -119,8 +119,20 @@ class AlumnoFragment : Fragment() {
     }
 
     private fun iniciarAlumnos() {
-        (activity as NavdrawActivity).supportActionBar?.title =
-            "Alumnos Registrados"
+        if (grupoMatriculado == null) {
+            (activity as NavdrawActivity).supportActionBar?.title =
+                "Alumnos Registrados"
+
+            (activity as NavdrawActivity).supportActionBar?.subtitle =
+                ""
+        } else {
+            (activity as NavdrawActivity).supportActionBar?.title =
+                "Alumnos del Grupo"
+
+            (activity as NavdrawActivity).supportActionBar?.subtitle =
+                "Grupo ${grupoMatriculado!!.numero_grupo}"
+        }
+
 
         val fragmentTransaction = parentFragmentManager.beginTransaction()
 

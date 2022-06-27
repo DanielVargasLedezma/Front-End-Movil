@@ -70,6 +70,10 @@ class CrearAlumnoFragment : Fragment() {
         }
 
         binding.apply {
+            goBack.setOnClickListener {
+                iniciarAlumnos()
+            }
+
             insertar.setOnClickListener {
                 if (cedulaAlumno.text.isNotEmpty() && nombreAlumno.text.isNotEmpty() && telAlumno.text.isNotEmpty()
                     && emailAlumno.text.isNotEmpty() && alumnoAInsertar.codigo_carrera.isNotEmpty()

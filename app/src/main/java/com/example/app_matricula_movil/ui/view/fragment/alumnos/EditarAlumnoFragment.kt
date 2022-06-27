@@ -86,6 +86,10 @@ class EditarAlumnoFragment : Fragment(){
                 fillInputsByDefault()
             }
 
+            goBack.setOnClickListener {
+                iniciarAlumnos()
+            }
+
             insertar.setOnClickListener {
                 if (cedulaAlumno.text.isNotEmpty() && nombreAlumno.text.isNotEmpty() && telAlumno.text.isNotEmpty()
                     && emailAlumno.text.isNotEmpty() && alumnoAEnviar.codigo_carrera.isNotEmpty()

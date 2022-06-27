@@ -171,6 +171,7 @@ class NavdrawActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
              */
             R.id.usuarios -> {
                 supportActionBar?.title = "Usuarios Registrados"
+                supportActionBar?.subtitle = ""
                 replaceFragments(
                     UsuariosFragment.newInstance(
                         token!!,
@@ -180,24 +181,28 @@ class NavdrawActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
             }
             R.id.carreras -> {
                 supportActionBar?.title = "Carreras Registradas"
+                supportActionBar?.subtitle = ""
                 replaceFragments(
                     CarrerasFragment.newInstance()
                 )
             }
             R.id.cursos -> {
                 supportActionBar?.title = "Cursos Registrados"
+                supportActionBar?.subtitle = ""
                 replaceFragments(
                     CursosFragment.newInstance()
                 )
             }
             R.id.profesores ->{
                 supportActionBar?.title = "Profesores Registrados"
+                supportActionBar?.subtitle = ""
                 replaceFragments(
                     ProfesoresFragment.newInstance()
                 )
             }
             R.id.alumnos -> {
                 supportActionBar?.title = "Alumnos Registrados"
+                supportActionBar?.subtitle = ""
                 replaceFragments(
                     AlumnosFragment.newInstance(
                         token!!, userLogged!!
@@ -206,12 +211,14 @@ class NavdrawActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
             }
             R.id.ciclos -> {
                 supportActionBar?.title = "Ciclos Registrados"
+                supportActionBar?.subtitle = ""
                 replaceFragments(
                     CiclosFragment.newInstance( )
                 )
             }
             R.id.oferta_academica -> {
                 supportActionBar?.title = "Oferta Académica"
+                supportActionBar?.subtitle = ""
                 replaceFragments(
                     OfertaAcademicaFragment.newInstance(
                         userLogged!!,
@@ -221,6 +228,7 @@ class NavdrawActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
             }
             R.id.matricula -> {
                 supportActionBar?.title = "Alumnos Registrados"
+                supportActionBar?.subtitle = ""
                 replaceFragments(
                     AlumnosFragment.newInstance(
                         token!!, userLogged!!, "GruposMatriculadosAlumno"
@@ -229,12 +237,14 @@ class NavdrawActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
             }
             R.id.grupos_asignados -> {
                 supportActionBar?.title = "Grupos Asignados"
+                supportActionBar?.subtitle = ""
                 replaceFragments(
                     GruposFragment.newInstance(null, "GruposAsignados")
                 )
             }
             R.id.historial_matricula -> {
                 supportActionBar?.title = "Historial Académico"
+                supportActionBar?.subtitle = ""
                 replaceFragments(
                     MatriculasFragment.newInstance()
                 )

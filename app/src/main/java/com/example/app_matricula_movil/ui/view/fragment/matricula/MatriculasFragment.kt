@@ -101,8 +101,13 @@ class MatriculasFragment : Fragment() {
     }
 
     private fun onItemSelected(matricula: MatriculaCompleja) {
-        (activity as NavdrawActivity).supportActionBar?.title = "Visualizar Historial Académico"
+        if (alumno == null) {
+            (activity as NavdrawActivity).supportActionBar?.subtitle = ""
+        } else {
+            (activity as NavdrawActivity).supportActionBar?.subtitle = "Alumno ${alumno!!.cedula_alumno}"
+        }
 
+        (activity as NavdrawActivity).supportActionBar?.title = "Visualizar Historial Académico"
         swapFragments(
             MatriculaFragment.newInstance(
                 matricula, alumno

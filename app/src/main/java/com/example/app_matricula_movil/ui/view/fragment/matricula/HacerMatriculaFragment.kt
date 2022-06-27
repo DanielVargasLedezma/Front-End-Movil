@@ -172,7 +172,9 @@ class HacerMatriculaFragment : Fragment() {
 
     private fun iniciarGrupos() {
         (activity as NavdrawActivity).supportActionBar?.title =
-            "Grupos matriculados de ${alumnoElegido!!.cedula_alumno}"
+            "Grupos Matriculados"
+
+        (activity as NavdrawActivity).supportActionBar?.subtitle = "Alumno ${alumnoElegido!!.cedula_alumno}"
 
         swapFragments(
             GruposFragment.newInstance(null, tipoVista, alumnoElegido)

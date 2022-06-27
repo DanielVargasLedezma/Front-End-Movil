@@ -22,7 +22,7 @@ class CicloFragment : Fragment() {
     private var cicloAver: Ciclo? = null
 
     private var _binding: FragmentCicloBinding? = null
-    private val binding get() =  _binding!!
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,10 +38,10 @@ class CicloFragment : Fragment() {
         _binding = FragmentCicloBinding.inflate(inflater, container, false)
 
         binding.apply {
-            numCiclo.setText(cicloAver!!.numero_ciclo.toString())
-            annoQueseLleva.setText(cicloAver!!.year.toString())
-            fechaInicio.setText(cicloAver!!.fecha_inicio)
-            fechaFinalizacion.setText(cicloAver!!.fecha_finalizacion)
+            numCiclo.setText(getNumCiclo())
+            annoQueseLleva.setText("Año ${cicloAver!!.year}")
+            fechaInicio.setText(getGoodDate(cicloAver!!.fecha_inicio))
+            fechaFinalizacion.setText(getGoodDate(cicloAver!!.fecha_finalizacion))
 
             estadoUsuario.isChecked = cicloAver!!.ciclo_activo == 1
 
@@ -51,6 +51,18 @@ class CicloFragment : Fragment() {
         }
         return binding.root
     }
+
+    private fun getGoodDate(fecha: String): String {
+        val values = fecha.substring(0, 10).split("-")
+
+        return "${values[2]}-${values[1]}-${values[0]}"
+    }
+
+    private fun getNumCiclo(): String {
+        return if (cicloAver!!.numero_ciclo == 1) "Primer Ciclo"
+        else "Segundo Ciclo"
+    }
+
     private fun iniciarCiclos() {
         (activity as NavdrawActivity).supportActionBar?.title = "Ciclos Registrados"
 

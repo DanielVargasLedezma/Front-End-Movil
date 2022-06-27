@@ -50,11 +50,16 @@ class MatriculaFragment : Fragment() {
             nota.setText(getNota(matriculaAVer!!.nota))
 
             goBack.setOnClickListener {
-                if (alumno == null) (activity as NavdrawActivity).supportActionBar?.title =
-                    "Historial Académico"
-                else (activity as NavdrawActivity).supportActionBar?.title =
-                    "Historial Académico de ${alumno!!.cedula_alumno}"
+                if (alumno == null) {
+                    (activity as NavdrawActivity).supportActionBar?.title =
+                        "Historial Académico"
+                    (activity as NavdrawActivity).supportActionBar?.subtitle = ""
+                } else {
+                    (activity as NavdrawActivity).supportActionBar?.title =
+                        "Historial Académico"
 
+                    (activity as NavdrawActivity).supportActionBar?.subtitle = "Alumno ${alumno!!.cedula_alumno}"
+                }
                 swapFragments(
                     MatriculasFragment.newInstance(
                         alumno

@@ -427,9 +427,9 @@ class AlumnosFragment : Fragment() {
     private fun onItemSelected(alumno: AlumnoComplejo) {
         when (tipoVista) {
             "GruposAsignados" -> {
-                (activity as NavdrawActivity).supportActionBar?.title = "Visualizar Alumno"
+                (activity as NavdrawActivity).supportActionBar?.title = "Visualizar Alumno del Grupo"
                 (activity as NavdrawActivity).supportActionBar?.subtitle =
-                    "Alumno del Grupo ${grupoComplejo!!.numero_grupo}"
+                    "Grupo ${grupoComplejo!!.numero_grupo}"
             }
             else -> {
                 (activity as NavdrawActivity).supportActionBar?.title = "Visualizar Alumno"

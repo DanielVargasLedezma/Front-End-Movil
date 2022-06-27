@@ -107,7 +107,7 @@ class CrearCicloFragment : Fragment() {
     private fun setAdapterNumeroCiclo() {
         binding.apply {
             adapterNumeroCiclo =
-                ArrayAdapter<String>(this@CrearCicloFragment.context!!, R.layout.spinner_list_year_first)
+                ArrayAdapter<String>(this@CrearCicloFragment.context!!, R.layout.spinner_list_cycle_first)
 
             adapterNumeroCiclo.setDropDownViewResource(R.layout.spinner_list_item)
 

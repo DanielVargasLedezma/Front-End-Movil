@@ -18,11 +18,10 @@ import com.example.app_matricula_movil.ui.view.fragment.cursos.CursosFragment
 import com.example.app_matricula_movil.ui.view.fragment.grupos.GruposFragment
 import com.example.app_matricula_movil.ui.view.fragment.matricula.MatriculasFragment
 
-class ProfesorFragment : Fragment(){
+class ProfesorFragment : Fragment() {
     private val ARG_PARAM1 = "param1"
 
     private var profesorAVer: Profesor? = null
-    private var tipoVista: String? = null
 
     private var _binding: FragmentProfesorBinding? = null
     private val binding get() = _binding!!
@@ -31,7 +30,6 @@ class ProfesorFragment : Fragment(){
         super.onCreate(savedInstanceState)
         arguments?.let {
             profesorAVer = it.getSerializable(ARG_PARAM1) as Profesor?
-
         }
     }
 
@@ -51,29 +49,21 @@ class ProfesorFragment : Fragment(){
                 iniciarProfesores()
             }
 
-            /* profesorAVer.setOnClickListener {
-                swapFragments(
-                    ProfesorFragment.newInstance(profesorAVer)
-                )
-            }*/
-
             return binding.root
         }
     }
+
     private fun iniciarProfesores() {
         (activity as NavdrawActivity).supportActionBar?.title =
             "Profesores Registrados"
 
-        val fragmentTransaction = parentFragmentManager.beginTransaction()
-
-        fragmentTransaction.replace(
-            R.id.contentMain, AlumnosFragment.newInstance(
-                (activity as NavdrawActivity).token!!, (activity as NavdrawActivity).userLogged!!, tipoVista
+        swapFragments(
+            AlumnosFragment.newInstance(
+                (activity as NavdrawActivity).token!!, (activity as NavdrawActivity).userLogged!!
             )
         )
-
-        fragmentTransaction.commit()
     }
+
     private fun swapFragments(fragment: Fragment) {
         val fragmentTransaction = parentFragmentManager.beginTransaction()
 
@@ -83,6 +73,7 @@ class ProfesorFragment : Fragment(){
 
         fragmentTransaction.commit()
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

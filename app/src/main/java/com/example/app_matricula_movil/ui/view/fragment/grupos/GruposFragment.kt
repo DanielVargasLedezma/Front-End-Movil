@@ -164,7 +164,10 @@ class GruposFragment : Fragment() {
                 "GruposMatriculadosAlumno" -> {
                     fab.setOnClickListener {
                         (activity as NavdrawActivity).supportActionBar?.title =
-                            "Matricular grupo a ${alumnoElegido!!.cedula_alumno}"
+                            "Matricular Grupo"
+
+                        (activity as NavdrawActivity).supportActionBar?.subtitle =
+                            "Alumno ${alumnoElegido!!.cedula_alumno}"
 
                         swapFragments(
                             HacerMatriculaFragment.newInstance(alumnoElegido!!, viendoVista)
@@ -521,9 +524,15 @@ class GruposFragment : Fragment() {
     }
 
     private fun onItemSelected(grupo: GrupoComplejo) {
-        if (alumnoElegido == null) (activity as NavdrawActivity).supportActionBar?.title = "Visualizar Grupo"
-        else (activity as NavdrawActivity).supportActionBar?.title =
-            "Matrícula Realizada de ${alumnoElegido!!.cedula_alumno}"
+        if (alumnoElegido == null) {
+            (activity as NavdrawActivity).supportActionBar?.title = "Visualizar Grupo"
+        }
+        else {
+            (activity as NavdrawActivity).supportActionBar?.title =
+                "Visualizar Matrícula Realizada"
+
+            (activity as NavdrawActivity).supportActionBar?.subtitle = "Alumno ${alumnoElegido!!.cedula_alumno}"
+        }
 
         swapFragments(
             GrupoFragment.newInstance(
